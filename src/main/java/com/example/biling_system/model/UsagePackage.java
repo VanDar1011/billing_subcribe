@@ -18,11 +18,17 @@ public class UsagePackage {
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "package_id",referencedColumnName = "id")
     Package packageObjs;
+    @Column(name="start_day")
     Date startDay;
+    @Column(name="end_day")
     Date endDay;
-    @Column(length = 20)
-    String checkout_status;
+    @Column(length = 20,name="check_status")
+    String checkoutStatus;
     String note;
+    @ManyToOne
+    @JoinColumn(name = "id_subcriber")
+    Subcriber subcriber;
+
 
 
 

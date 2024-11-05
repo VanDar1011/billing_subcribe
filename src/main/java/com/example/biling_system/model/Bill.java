@@ -20,8 +20,9 @@ public class Bill {
     String customerCode;
     @Column(length = 10,name="subcibe_code")
     String subcibeCode;
-    @Column(length = 10,name="usage_package_code")
-    String usagePackageCode;
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn(name = "usage_package_id",referencedColumnName = "id")
+    UsagePackage usagePackageCode;
     @Column(name="establishtment_day")
     Date establishtmentDay;
     @Column(name="collect_day")

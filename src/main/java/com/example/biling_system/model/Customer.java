@@ -16,7 +16,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class KhachHang {
+public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_Customer")
@@ -36,8 +36,7 @@ public class KhachHang {
     String email;
     @Column(length = 12, name = "IdentifyCode")
     String identifyCode;
-
     @OneToMany(mappedBy = "idCustomer", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<ThueBao> idCustomer;
+    List<Subcriber> subcribers;
 }
 
