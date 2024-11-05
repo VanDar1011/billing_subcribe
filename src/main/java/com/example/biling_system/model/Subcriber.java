@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
@@ -15,7 +16,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "phoneNumbers")
-public class ThueBao {
+public class Subcriber {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_PhomeNumber")
@@ -34,9 +35,10 @@ public class ThueBao {
     String seriPhoneNumber;
     @Column(name = "Status")
     boolean status;
-
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idCustomer", referencedColumnName = "ID_Customer")
-    KhachHang idCustomer;
+    Customer idCustomer;
+    @OneToMany(mappedBy = "subcriber", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<UsagePackage> usagePackages;
 
 }
