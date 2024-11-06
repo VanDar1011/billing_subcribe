@@ -19,7 +19,7 @@ import java.util.List;
 public class Subcriber {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_PhomeNumber")
+    @Column(name = "id_phonenumber")
     int id;
     @Column(length = 10, name = "CodeNumber")
     String codeNumber;
@@ -36,9 +36,10 @@ public class Subcriber {
     @Column(name = "Status")
     boolean status;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idCustomer", referencedColumnName = "ID_Customer")
+    @JoinColumn(name = "idCustomer", referencedColumnName = "id_customer")
     Customer idCustomer;
-    @OneToMany(mappedBy = "subcriber", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
+    @OneToMany(mappedBy = "IDsubcriber", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UsagePackage> usagePackages;
 
 }
