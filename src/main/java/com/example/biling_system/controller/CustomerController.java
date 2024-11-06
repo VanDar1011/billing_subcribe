@@ -1,6 +1,7 @@
 package com.example.biling_system.controller;
 
 
+import com.example.biling_system.dto.CustomerDTO;
 import com.example.biling_system.dto.request.CustomerRequest;
 import com.example.biling_system.dto.response.ApiResponse;
 import com.example.biling_system.dto.response.CustomerResponse;
@@ -8,9 +9,12 @@ import com.example.biling_system.service.CustomerService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.repository.query.Param;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/customers")
@@ -58,5 +62,25 @@ public class CustomerController {
             apiResponse.setData(customer);
         }
         return apiResponse;
+    }
+
+    @GetMapping ("/search")
+    public ResponseEntity<ApiResponse<CustomerDTO>> searchByCCCd(@Param("cccd") String cccd) {
+        ApiResponse<CustomerDTO> apiResponse = new ApiResponse<>();
+        Optional<Customer> customer = customerService.searchCustomerByCCCD(cccd);
+        if (customer.isPresent()) {
+            Customer custom = customer.get();
+            CustomerDTO customerDTO = new CustomerDTO();
+            customerDTO.setAddress(custom.getAddress());
+            customerDTO.setName(custom.getName());
+            customerDTO.setEmail(custom.getEmail());
+            customerDTO.setGender(custom.getGender());
+            customerDTO.setIdentifyCode(custom.getIdentifyCode());
+            customerDTO.setCodeCus(custom.getCodeCus());
+            customerDTO.setDateOfBirth(custom.getDateOfBirth());
+            apiResponse.setData(customerDTO);
+            apiResponse.setMessage("Customer found");
+        }
+        return ResponseEntity.status(200).body(apiResponse);
     }
 }
