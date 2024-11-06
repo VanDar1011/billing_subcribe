@@ -3,6 +3,7 @@ package com.example.biling_system.controller;
 
 import com.example.biling_system.dto.request.CustomerRequest;
 import com.example.biling_system.dto.response.ApiResponse;
+import com.example.biling_system.dto.response.CustomerResponse;
 import com.example.biling_system.model.Customer;
 import com.example.biling_system.service.CustomerService;
 import lombok.AccessLevel;
@@ -20,8 +21,8 @@ public class CustomerController {
     CustomerService customerService;
 
     @PostMapping
-    public ApiResponse<Customer> addCustomer(@RequestBody CustomerRequest request) {
-        ApiResponse<Customer> apiResponse = new ApiResponse<>();
+    public ApiResponse<CustomerResponse> addCustomer(@RequestBody CustomerRequest request) {
+        ApiResponse<CustomerResponse> apiResponse = new ApiResponse<>();
         apiResponse.setData(customerService.createCustomer(request));
         return apiResponse;
     }

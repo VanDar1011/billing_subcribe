@@ -28,9 +28,6 @@ public class Bill {
     Customer idCustomer;
     @Column(length = 10, name = "subcibe_code")
     String subcibeCode;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "usage_package_id", referencedColumnName = "id_usagepackage")
-    UsagePackage usagePackageCode;
     @Column(name = "establishtment_day")
     Date establishtmentDay;
     @Column(name = "collect_day")
@@ -40,7 +37,7 @@ public class Bill {
     @Column(length = 20)
     String status;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "idUsagePackage", referencedColumnName = "id_usagepackage")
     UsagePackage idUsagePackage;
 

@@ -1,9 +1,13 @@
 package com.example.biling_system.exception;
 
+
 public enum ErrorCode {
 
     CUSTOMER_NOT_FOUND(1001, "Customer Not Found"),
     SUBCRIBER_NOT_FOUND(1002, "Subcriber Not Found"),
+    PACKAGE_TYPE_NOT_FOUND(1003, "Package Type Not Found"),
+    USAGE_PACKAGE_NOT_FOUND(1004, "Usage Package Not Found"),
+    BILL_NOT_FOUND(1005, "Bill Not Found"),
 
 
     ;
@@ -14,6 +18,7 @@ public enum ErrorCode {
 
     private long code;
     private String message;
+
 
     public long getCode() {
         return code;

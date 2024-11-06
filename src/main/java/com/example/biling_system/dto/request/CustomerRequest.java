@@ -30,6 +30,6 @@ public class CustomerRequest {
 
     String identifyCode;
 
-    List<Subcriber> subcribers;
+
 
 }

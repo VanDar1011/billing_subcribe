@@ -20,8 +20,6 @@ public class UsagePackage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usagepackage")
     long id;
-    @Column(length = 10, name = "usage_package_code", unique = true)
-    String usagePackageCode;
     @Column(name = "start_day")
     Date startDay;
     @Column(name = "end_day")

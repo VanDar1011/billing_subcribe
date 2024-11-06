@@ -3,6 +3,7 @@ package com.example.biling_system.service;
 
 import com.example.biling_system.Repository.CustomerRepository;
 import com.example.biling_system.dto.request.CustomerRequest;
+import com.example.biling_system.dto.response.CustomerResponse;
 import com.example.biling_system.exception.AppException;
 import com.example.biling_system.exception.ErrorCode;
 import com.example.biling_system.mapper.CustomerMapper;
@@ -22,14 +23,16 @@ public class CustomerService {
     CustomerRepository customerRepository;
     CustomerMapper customerMapper;
 
-    public Customer createCustomer(CustomerRequest request) {
+    public CustomerResponse createCustomer(CustomerRequest request) {
 
         Customer customer = customerMapper.toCustomer(request);
 
-        return customerRepository.save(customer);
+        customer = customerRepository.save(customer);
+
+        return customerMapper.toCustomerResponse(customer);
     }
 
-    public Customer findCustomerById(Long id) {
+    public Customer findCustomerById(long id) {
         return customerRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.CUSTOMER_NOT_FOUND));
     }
 
@@ -38,13 +41,13 @@ public class CustomerService {
         return customerRepository.findAll(pageable);
     }
 
-    public Customer updateCustomer(Long id, CustomerRequest request) {
+    public Customer updateCustomer(long id, CustomerRequest request) {
         Customer customer = findCustomerById(id);
         customer = customerMapper.toCustomer(request);
         return customerRepository.save(customer);
     }
 
-    public Customer deleteCustomer(Long id) {
+    public Customer deleteCustomer(long id) {
         Customer customer = findCustomerById(id);
         customerRepository.delete(customer);
         return customer;
