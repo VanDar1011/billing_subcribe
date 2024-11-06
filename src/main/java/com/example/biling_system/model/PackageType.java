@@ -27,8 +27,7 @@ public class PackageType {
     Double packagePrice;
 
     @OneToMany(mappedBy = "idPackageType", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<UsagePackage> usagePackages;
-
+    List<UsagePackage> usagePackages;
 
 
 }

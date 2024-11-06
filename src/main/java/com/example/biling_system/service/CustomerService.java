@@ -3,6 +3,7 @@ package com.example.biling_system.service;
 
 import com.example.biling_system.Repository.CustomerRepository;
 import com.example.biling_system.dto.request.CustomerRequest;
+import com.example.biling_system.dto.response.CustomerResponse;
 import com.example.biling_system.exception.AppException;
 import com.example.biling_system.exception.ErrorCode;
 import com.example.biling_system.mapper.CustomerMapper;
@@ -22,31 +23,36 @@ public class CustomerService {
     CustomerRepository customerRepository;
     CustomerMapper customerMapper;
 
-    public Customer createCustomer(CustomerRequest request) {
+    public CustomerResponse createCustomer(CustomerRequest request) {
 
         Customer customer = customerMapper.toCustomer(request);
 
-        return customerRepository.save(customer);
+        customer = customerRepository.save(customer);
+
+        return customerMapper.toCustomerResponse(customer);
     }
 
-    public Customer findCustomerById(Long id) {
-        return customerRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.CUSTOMER_NOT_FOUND));
+    public CustomerResponse findCustomerById(long id) {
+        var customer = customerRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.CUSTOMER_NOT_FOUND));
+        return customerMapper.toCustomerResponse(customer);
     }
 
-    public Page<Customer> findAllCustomers(int page, int size) {
+    public Page<CustomerResponse> findAllCustomers(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return customerRepository.findAll(pageable);
+        var customer = customerRepository.findAll(pageable);
+        return customerMapper.toCustomerResponsePage(customer);
     }
 
-    public Customer updateCustomer(Long id, CustomerRequest request) {
-        Customer customer = findCustomerById(id);
+    public CustomerResponse updateCustomer(long id, CustomerRequest request) {
+        var customer = customerRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.CUSTOMER_NOT_FOUND));
         customer = customerMapper.toCustomer(request);
-        return customerRepository.save(customer);
+        customer = customerRepository.save(customer);
+        return customerMapper.toCustomerResponse(customer);
     }
 
-    public Customer deleteCustomer(Long id) {
-        Customer customer = findCustomerById(id);
+    public CustomerResponse deleteCustomer(long id) {
+        var customer = customerRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.CUSTOMER_NOT_FOUND));
         customerRepository.delete(customer);
-        return customer;
+        return customerMapper.toCustomerResponse(customer);
     }
 }
