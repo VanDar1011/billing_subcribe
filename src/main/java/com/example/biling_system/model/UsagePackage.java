@@ -28,11 +28,9 @@ public class UsagePackage {
     String checkoutStatus;
     @Column(length = 20, name = "Note")
     String note;
-
     @ManyToOne
     @JoinColumn(name = "id_subcriber", referencedColumnName = "id_phonenumber")
     Subcriber IDsubcriber;
-
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_packagetype", referencedColumnName = "id_packagetype")
     PackageType idPackageType;
