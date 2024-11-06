@@ -1,9 +1,5 @@
 package com.example.biling_system.dto.response;
 
-import com.example.biling_system.model.Subcriber;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;

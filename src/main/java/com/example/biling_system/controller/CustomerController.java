@@ -28,33 +28,33 @@ public class CustomerController {
     }
 
     @GetMapping
-    public ApiResponse<List<Customer>> getAllCustomers(
+    public ApiResponse<List<CustomerResponse>> getAllCustomers(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
-        ApiResponse<List<Customer>> apiResponse = new ApiResponse<>();
+        ApiResponse<List<CustomerResponse>> apiResponse = new ApiResponse<>();
         apiResponse.setData(customerService.findAllCustomers(page, size).getContent());
         return apiResponse;
     }
 
     @GetMapping("/{id}")
-    public ApiResponse<Customer> getCustomer(@PathVariable("id") long id) {
-        ApiResponse<Customer> apiResponse = new ApiResponse<>();
+    public ApiResponse<CustomerResponse> getCustomer(@PathVariable("id") long id) {
+        ApiResponse<CustomerResponse> apiResponse = new ApiResponse<>();
         apiResponse.setData(customerService.findCustomerById(id));
         return apiResponse;
     }
 
     @PutMapping("/{id}")
-    public ApiResponse<Customer> updateCustomer(@PathVariable("id") long id, @RequestBody CustomerRequest request) {
-        ApiResponse<Customer> apiResponse = new ApiResponse<>();
+    public ApiResponse<CustomerResponse> updateCustomer(@PathVariable("id") long id, @RequestBody CustomerRequest request) {
+        ApiResponse<CustomerResponse> apiResponse = new ApiResponse<>();
         apiResponse.setData(customerService.updateCustomer(id, request));
         return apiResponse;
     }
 
     @DeleteMapping("/{id}")
-    public ApiResponse<Customer> deleteCustomer(@PathVariable("id") long id) {
+    public ApiResponse<CustomerResponse> deleteCustomer(@PathVariable("id") long id) {
 
-        ApiResponse<Customer> apiResponse = new ApiResponse<>();
-        Customer customer = customerService.deleteCustomer(id);
+        ApiResponse<CustomerResponse> apiResponse = new ApiResponse<>();
+        var customer = customerService.deleteCustomer(id);
         if (customer != null) {
             apiResponse.setData(customer);
         }
