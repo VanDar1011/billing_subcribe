@@ -19,7 +19,7 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_transaction")
-    int id;
+    long id;
     @Column(length = 10, name = "transaction_code", unique = true)
     String transactionCode;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

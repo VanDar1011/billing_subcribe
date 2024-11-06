@@ -20,7 +20,7 @@ public class Subcriber {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_phonenumber")
-    int id;
+    long id;
     @Column(length = 10, name = "CodeNumber")
     String codeNumber;
     @Column(length = 15, name = "PhoneNumber")

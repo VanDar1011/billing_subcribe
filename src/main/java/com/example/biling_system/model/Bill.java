@@ -20,7 +20,7 @@ public class Bill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_bill")
-    int id;
+    long id;
     @Column(length = 10, name = "bill_code", unique = true)
     String billCode;
     @OneToOne(cascade = CascadeType.ALL)

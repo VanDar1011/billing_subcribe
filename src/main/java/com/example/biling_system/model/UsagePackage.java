@@ -19,7 +19,7 @@ public class UsagePackage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usagepackage")
-    int id;
+    long id;
     @Column(length = 10, name = "usage_package_code", unique = true)
     String usagePackageCode;
     @Column(name = "start_day")
@@ -36,8 +36,8 @@ public class UsagePackage {
     Subcriber IDsubcriber;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_package", referencedColumnName = "id_package")
-    Package idPkg;
+    @JoinColumn(name = "id_packagetype", referencedColumnName = "id_packagetype")
+    PackageType idPackageType;
 
 
 }
