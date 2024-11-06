@@ -3,6 +3,7 @@ package com.example.biling_system.service;
 
 import com.example.biling_system.Repository.PackageTypeRepository;
 import com.example.biling_system.dto.request.PackageTypeRequest;
+import com.example.biling_system.dto.response.PackageTypeResponse;
 import com.example.biling_system.exception.AppException;
 import com.example.biling_system.exception.ErrorCode;
 import com.example.biling_system.mapper.PackageTypeMapper;
@@ -23,32 +24,34 @@ public class PackageTypeService {
     PackageTypeRepository packageTypeRepository;
     PackageTypeMapper packageTypeMapper;
 
-    public PackageType createPackageType(PackageTypeRequest request) {
+    public PackageTypeResponse createPackageType(PackageTypeRequest request) {
         PackageType packageType = packageTypeMapper.toPackageType(request);
         packageTypeRepository.save(packageType);
-        return packageType;
+        return packageTypeMapper.toPackageTypeResponse(packageType);
     }
 
-    public Page<PackageType> findAllPackageTypes(int page, int size) {
+    public Page<PackageTypeResponse> findAllPackageTypes(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return packageTypeRepository.findAll(pageable);
+        var packageTypes = packageTypeRepository.findAll(pageable);
+        return packageTypeMapper.toPackageTypePageResponse(packageTypes);
     }
 
-    public PackageType findPackageTypeById(long id) {
-        return packageTypeRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.PACKAGE_TYPE_NOT_FOUND));
+    public PackageTypeResponse findPackageTypeById(long id) {
+        var packageType = packageTypeRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.PACKAGE_TYPE_NOT_FOUND));
+        return packageTypeMapper.toPackageTypeResponse(packageType);
     }
 
-    public PackageType updatePackageTypeById(long id, PackageTypeRequest request) {
-        PackageType packageType = findPackageTypeById(id);
+    public PackageTypeResponse updatePackageTypeById(long id, PackageTypeRequest request) {
+        var packageType = packageTypeRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.PACKAGE_TYPE_NOT_FOUND));
         packageType = packageTypeMapper.toPackageType(request);
         packageTypeRepository.save(packageType);
-        return packageType;
+        return packageTypeMapper.toPackageTypeResponse(packageType);
     }
 
-    public PackageType deletePackageTypeById(long id) {
-        PackageType packageType = findPackageTypeById(id);
+    public PackageTypeResponse deletePackageTypeById(long id) {
+        var packageType = packageTypeRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.PACKAGE_TYPE_NOT_FOUND));
         packageTypeRepository.delete(packageType);
-        return packageType;
+        return packageTypeMapper.toPackageTypeResponse(packageType);
     }
 
 }

@@ -3,6 +3,7 @@ package com.example.biling_system.service;
 
 import com.example.biling_system.Repository.SubcriberRepository;
 import com.example.biling_system.dto.request.SubcriberRequest;
+import com.example.biling_system.dto.response.SubcriberResponse;
 import com.example.biling_system.exception.AppException;
 import com.example.biling_system.exception.ErrorCode;
 import com.example.biling_system.mapper.SubcriberMapper;
@@ -22,29 +23,33 @@ public class SubcriberService {
     SubcriberRepository subcriberRepository;
     SubcriberMapper subcriberMapper;
 
-    public Subcriber create(SubcriberRequest request) {
-        Subcriber subcriber = subcriberMapper.toSubcriber(request);
-        return subcriberRepository.save(subcriber);
+    public SubcriberResponse create(SubcriberRequest request) {
+        var subcriber = subcriberMapper.toSubcriber(request);
+        subcriber = subcriberRepository.save(subcriber);
+        return subcriberMapper.toSubcriberResponse(subcriber);
     }
 
-    public Page<Subcriber> findAllSubcribers(int page, int size) {
+    public Page<SubcriberResponse> findAllSubcribers(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return subcriberRepository.findAll(pageable);
+        var subcribers = subcriberRepository.findAll(pageable);
+        return subcriberMapper.toCustomerResponsePage(subcribers);
     }
 
-    public Subcriber findSubcriberById(long id) {
-        return subcriberRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.SUBCRIBER_NOT_FOUND));
+    public SubcriberResponse findSubcriberById(long id) {
+        var subcriber = subcriberRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.SUBCRIBER_NOT_FOUND));
+        return subcriberMapper.toSubcriberResponse(subcriber);
     }
 
-    public Subcriber updateSubcriber(long id, SubcriberRequest request) {
-        Subcriber subcriber = findSubcriberById(id);
+    public SubcriberResponse updateSubcriber(long id, SubcriberRequest request) {
+        var subcriber = subcriberRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.SUBCRIBER_NOT_FOUND));
         subcriber = subcriberMapper.toSubcriber(request);
-        return subcriberRepository.save(subcriber);
+        subcriberRepository.save(subcriber);
+        return subcriberMapper.toSubcriberResponse(subcriber);
     }
 
-    public Subcriber deleteSubcriber(long id) {
-        Subcriber subcriber = findSubcriberById(id);
+    public SubcriberResponse deleteSubcriber(long id) {
+        var subcriber = subcriberRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.SUBCRIBER_NOT_FOUND));
         subcriberRepository.delete(subcriber);
-        return subcriber;
+        return subcriberMapper.toSubcriberResponse(subcriber);
     }
 }

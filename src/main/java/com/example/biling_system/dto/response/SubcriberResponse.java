@@ -1,4 +1,5 @@
-package com.example.biling_system.dto.request;
+package com.example.biling_system.dto.response;
+
 
 import com.example.biling_system.model.Customer;
 import lombok.AccessLevel;
@@ -9,12 +10,11 @@ import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
 
-
 @Data
-@FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @NoArgsConstructor
-public class SubcriberRequest {
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class SubcriberResponse {
     String codeNumber;
 
     String phoneNumber;

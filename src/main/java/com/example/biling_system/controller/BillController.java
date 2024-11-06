@@ -47,7 +47,12 @@ public class BillController {
         return response;
     }
 
-//    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}")
+    public ApiResponse<Bill> deleteBill(@PathVariable("id") long id) {
+        ApiResponse<Bill> response = new ApiResponse<>();
+        response.setData(billService.deleteBill(id));
+        return response;
+    }
 
 
 

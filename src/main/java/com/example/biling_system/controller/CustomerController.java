@@ -4,7 +4,6 @@ package com.example.biling_system.controller;
 import com.example.biling_system.dto.request.CustomerRequest;
 import com.example.biling_system.dto.response.ApiResponse;
 import com.example.biling_system.dto.response.CustomerResponse;
-import com.example.biling_system.model.Customer;
 import com.example.biling_system.service.CustomerService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
