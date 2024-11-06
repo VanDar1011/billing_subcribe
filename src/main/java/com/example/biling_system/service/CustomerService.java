@@ -2,6 +2,7 @@ package com.example.biling_system.service;
 
 
 import com.example.biling_system.Repository.CustomerRepository;
+import com.example.biling_system.dto.CustomerDTO;
 import com.example.biling_system.dto.request.CustomerRequest;
 import com.example.biling_system.dto.response.CustomerResponse;
 import com.example.biling_system.exception.AppException;
@@ -57,12 +58,12 @@ public class CustomerService {
         customerRepository.delete(customer);
         return customerMapper.toCustomerResponse(customer);
     }
-    public Optional<Customer> searchCustomerByCCCD(String cccd ) {
+    public CustomerResponse searchCustomerByCCCD(String cccd ) {
         Customer customer = customerRepository.findByIdentifyCode(cccd);
         if(customer == null) {
             throw new AppException(ErrorCode.CUSTOMER_NOT_FOUND);
         }
-        return Optional.of(customer);
+        return customerMapper.toCustomerResponse(customer);
     }
 
 }

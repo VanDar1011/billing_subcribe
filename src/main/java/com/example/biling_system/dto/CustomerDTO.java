@@ -3,6 +3,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -16,4 +18,5 @@ public class CustomerDTO {
     String address;
     String email;
     String identifyCode;
+    List<SubcriberDTO> subcribers;
 }

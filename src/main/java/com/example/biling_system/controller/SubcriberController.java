@@ -70,20 +70,9 @@ public class SubcriberController {
     @GetMapping("/search")
     public ResponseEntity<ApiResponse<List<SubcriberDTO>>> searchSubcriber(@Param("cccd") String cccd){
         ApiResponse<List<SubcriberDTO>> apiResponse = new ApiResponse<>();
-        List<Subcriber> listSubcriber = subcriberService.searchSubcriberByCCC(cccd);
-        List<SubcriberDTO> listSubcriberDTO = new ArrayList<>();
-        for (Subcriber subcriber : listSubcriber) {
-            SubcriberDTO subcriberDTO = new SubcriberDTO();
-            subcriberDTO.setCodeNumber(subcriber.getCodeNumber());
-            subcriberDTO.setPhoneNumber(subcriber.getPhoneNumber());
-            subcriberDTO.setPhoneNumberType(subcriber.getPhoneNumberType());
-            subcriberDTO.setDayActive(subcriber.getDayActive());
-            subcriberDTO.setDayInactive(subcriber.getDayInactive());
-            subcriberDTO.setSeriPhoneNumber(subcriber.getSeriPhoneNumber());
-            subcriberDTO.setStatus(subcriber.isStatus() ? "Active" : "Inactive");
-            listSubcriberDTO.add(subcriberDTO);
-        }
-        apiResponse.setData(listSubcriberDTO);
+        List<SubcriberDTO> listSubcriber = subcriberService.searchSubcriberByCCC(cccd);
+
+        apiResponse.setData(listSubcriber);
         return ResponseEntity.status(200).body(apiResponse);
     }
 
