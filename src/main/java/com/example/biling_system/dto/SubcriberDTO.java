@@ -18,5 +18,5 @@ public class SubcriberDTO {
     LocalDate dayActive;
     LocalDate dayInactive;
     String seriPhoneNumber;
-    boolean status;
+    String status;
 }

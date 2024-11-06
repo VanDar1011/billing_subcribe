@@ -28,5 +28,7 @@ public class CustomerResponse {
 
     String identifyCode;
 
+//    List<Subcriber> subcribers;
     List<String> subcribers;
+
 }
