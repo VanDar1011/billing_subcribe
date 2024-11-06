@@ -20,8 +20,6 @@ public class UsagePackage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usagepackage")
     long id;
-    @Column(length = 10, name = "usage_package_code", unique = true)
-    String usagePackageCode;
     @Column(name = "start_day")
     Date startDay;
     @Column(name = "end_day")
@@ -30,11 +28,9 @@ public class UsagePackage {
     String checkoutStatus;
     @Column(length = 20, name = "Note")
     String note;
-
     @ManyToOne
     @JoinColumn(name = "id_subcriber", referencedColumnName = "id_phonenumber")
     Subcriber IDsubcriber;
-
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_packagetype", referencedColumnName = "id_packagetype")
     PackageType idPackageType;

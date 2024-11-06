@@ -8,8 +8,11 @@ import com.example.biling_system.service.SubcriberService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.repository.query.Param;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -59,6 +62,13 @@ public class SubcriberController {
             apiResponse.setData(subcriber);
         }
         return apiResponse;
+    }
+    @GetMapping("/search")
+    public ResponseEntity<ApiResponse<List<Subcriber>>> searchSubcriber(@Param("cccd") String cccd){
+        ApiResponse<List<Subcriber>> apiResponse = new ApiResponse<>();
+        List<Subcriber> listSubcriber = subcriberService.searchSubcriberByCCC(cccd);
+        apiResponse.setData(listSubcriber);
+        return ResponseEntity.status(200).body(apiResponse);
     }
 
 }

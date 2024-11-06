@@ -15,6 +15,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -49,4 +51,12 @@ public class CustomerService {
         customerRepository.delete(customer);
         return customer;
     }
+    public Optional<Customer> searchCustomerByCCCD(String cccd ) {
+        Customer customer = customerRepository.findByIdentifyCode(cccd);
+        if(customer == null) {
+            throw new AppException(ErrorCode.CUSTOMER_NOT_FOUND);
+        }
+        return Optional.of(customer);
+    }
+
 }
