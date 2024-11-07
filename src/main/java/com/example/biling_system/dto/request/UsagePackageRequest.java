@@ -28,7 +28,7 @@ public class UsagePackageRequest {
 
     String note;
 
-    Subcriber IDsubcriber;
+    Long IDsubcriber;
 
-    PackageType idPackageType;
+    Long idPackageType;
 }

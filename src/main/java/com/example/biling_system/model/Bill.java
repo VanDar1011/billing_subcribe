@@ -23,11 +23,6 @@ public class Bill {
     long id;
     @Column(length = 10, name = "bill_code", unique = true)
     String billCode;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_customer", referencedColumnName = "id_customer")
-    Customer idCustomer;
-    @Column(length = 10, name = "subcibe_code")
-    String subcibeCode;
     @Column(name = "establishtment_day")
     Date establishtmentDay;
     @Column(name = "collect_day")

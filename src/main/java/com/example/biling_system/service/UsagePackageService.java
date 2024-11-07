@@ -1,9 +1,9 @@
 package com.example.biling_system.service;
 
 
-
 import com.example.biling_system.Repository.UsagePackageRepository;
 import com.example.biling_system.dto.request.UsagePackageRequest;
+import com.example.biling_system.dto.response.UsagePackageResponse;
 import com.example.biling_system.exception.AppException;
 import com.example.biling_system.exception.ErrorCode;
 import com.example.biling_system.mapper.UsagePackageMapper;
@@ -23,29 +23,33 @@ public class UsagePackageService {
     UsagePackageRepository usagePackageRepository;
     UsagePackageMapper usagePackageMapper;
 
-    public UsagePackage createUsagePackage(UsagePackageRequest request) {
+    public UsagePackageResponse createUsagePackage(UsagePackageRequest request) {
         UsagePackage usagePackage = usagePackageMapper.toUsagePackage(request);
-        return usagePackageRepository.save(usagePackage);
+        usagePackageRepository.save(usagePackage);
+        return usagePackageMapper.toUsagePackageResponse(usagePackage);
     }
 
-    public Page<UsagePackage> findAllUsagePackages(int page, int size) {
+    public Page<UsagePackageResponse> findAllUsagePackages(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return usagePackageRepository.findAll(pageable);
+        var usagepackage = usagePackageRepository.findAll(pageable);
+        return usagePackageMapper.toUsagePackagePageResponse(usagepackage);
     }
 
-    public UsagePackage findUsagePackageById(long id) {
-        return usagePackageRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USAGE_PACKAGE_NOT_FOUND));
+    public UsagePackageResponse findUsagePackageById(long id) {
+        var usagepackage = usagePackageRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USAGE_PACKAGE_NOT_FOUND));
+        return usagePackageMapper.toUsagePackageResponse(usagepackage);
     }
 
-    public UsagePackage updateUsagePackage(long id, UsagePackageRequest request) {
-        UsagePackage usagePackage = findUsagePackageById(id);
-        usagePackage = usagePackageMapper.toUsagePackage(request);
-        return usagePackageRepository.save(usagePackage);
+    public UsagePackageResponse updateUsagePackage(long id, UsagePackageRequest request) {
+        var usagepackage = usagePackageRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USAGE_PACKAGE_NOT_FOUND));
+        usagepackage = usagePackageMapper.toUsagePackage(request);
+        usagePackageRepository.save(usagepackage);
+        return usagePackageMapper.toUsagePackageResponse(usagepackage);
     }
 
-    public UsagePackage deleteUsagePackage(long id) {
-        UsagePackage usagePackage = findUsagePackageById(id);
-        usagePackageRepository.delete(usagePackage);
-        return usagePackage;
+    public UsagePackageResponse deleteUsagePackage(long id) {
+        var usagepackage = usagePackageRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USAGE_PACKAGE_NOT_FOUND));
+        usagePackageRepository.delete(usagepackage);
+        return usagePackageMapper.toUsagePackageResponse(usagepackage);
     }
 }
