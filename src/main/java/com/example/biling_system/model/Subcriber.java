@@ -38,7 +38,6 @@ public class Subcriber {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idCustomer", referencedColumnName = "id_customer")
     Customer idCustomer;
-
     @OneToMany(mappedBy = "IDsubcriber", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UsagePackage> usagePackages;
 

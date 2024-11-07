@@ -37,5 +37,6 @@ public class BillRequest {
 
     @NotNull(message = "BILL_NULL")
     Long idUsagePackage;
+    // hoa don cua ki nao
 
 }

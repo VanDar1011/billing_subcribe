@@ -24,8 +24,8 @@ public class UsagePackageResponse {
 
     String note;
 
-    Long IDsubcriber;
+//    Long IDsubcriber;
 
-    Long idPackageType;
+    PackageTypeResponse idPackageType;
 
 }
