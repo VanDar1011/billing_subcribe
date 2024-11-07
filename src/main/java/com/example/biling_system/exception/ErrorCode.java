@@ -17,12 +17,16 @@ public enum ErrorCode {
     SUBCRIBER_NOT_FOUND(1020, "Subcriber Not Found"),
     PHONE_EXIST(1021, "Phone Number or Code Number Already Exist"),
     SUBCRIBER_NULL(1022, "Must be filled out"),
-    PHONE_NUMBER_NOT_VALID(1023, "Phone Number must be at least 10 character"),
+    CODE_NUMBER_VALID(1023, "Code Number must be at least 10 characters"),
+    PHONE_NUMBER_NOT_VALID(1024, "Phone Number must be at least 10 character"),
+    SERI_PHONE_NUMBER_VALID(1025, "Serial Number must be at least 20 characters"),
+
 
     PACKAGE_TYPE_NOT_FOUND(1003, "Package Type Not Found"),
     PACKAGE_EXIST(1004, "PackageType Already Exist"),
     PACKAGE_NULL(1005, "Must be filled out"),
     PACKAGE_NOT_VALID(1006, "PackageType must be at least 10 character"),
+
 
     USAGE_PACKAGE_NOT_FOUND(1004, "Usage Package Not Found"),
     BILL_NOT_FOUND(1005, "Bill Not Found"),

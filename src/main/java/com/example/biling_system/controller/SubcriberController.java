@@ -8,8 +8,6 @@ import com.example.biling_system.dto.response.ApiResponse;
 import com.example.biling_system.dto.response.SubcriberResponse;
 import com.example.biling_system.exception.AppException;
 import com.example.biling_system.exception.ErrorCode;
-import com.example.biling_system.mapper.SubcriberMapper;
-import com.example.biling_system.model.Subcriber;
 import com.example.biling_system.service.SubcriberService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +16,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

@@ -3,6 +3,7 @@ package com.example.biling_system.dto.request;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,12 +20,14 @@ import java.time.LocalDate;
 public class SubcriberRequest {
 
     @NotNull(message = "SUBCRIBER_NULL")
+    @Size(max = 10, message = "CODE_NUMBER_VALID")
     String codeNumber;
 
-    @Pattern(regexp = "\\d{12}", message = "PHONE_NUMBER_NOT_VALID")
+    @Pattern(regexp = "\\d{10}", message = "PHONE_NUMBER_NOT_VALID")
     @NotNull(message = "SUBCRIBER_NULL")
     String phoneNumber;
 
+    @Size(max = 20)
     @NotNull(message = "SUBCRIBER_NULL")
     String phoneNumberType;
 
@@ -36,6 +39,7 @@ public class SubcriberRequest {
     @NotNull(message = "SUBCRIBER_NULL")
     LocalDate dayInactive;
 
+    @Size(max = 20, message = "SERI_PHONE_NUMBER_VALID")
     @NotNull(message = "SUBCRIBER_NULL")
     String seriPhoneNumber;
 
