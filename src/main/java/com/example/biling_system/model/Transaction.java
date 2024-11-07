@@ -20,7 +20,7 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_transaction")
     long id;
-    @Column(length = 10, name = "transaction_code", unique = true)
+    @Column(length = 13, name = "transaction_code", unique = true)
     String transactionCode;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "bill_id", referencedColumnName = "id_bill")
@@ -31,5 +31,4 @@ public class Transaction {
     Double totalAmount;
     @Column(length = 20, name = "status")
     String status;
-
 }
