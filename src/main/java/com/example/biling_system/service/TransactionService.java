@@ -40,7 +40,7 @@ public class TransactionService {
         Date date = new Date();
         transaction.setTransactionDate(new java.sql.Date(date.getTime()) );
         transaction.setTransactionCode(genTransactionCode());
-        transaction.setStatus("Oce");
+        transaction.setPaymentMethod(transactionRequest.getPaymentMethod());
         Transaction repositoryTransaction = transactionRepository.save(transaction);
         return transactionMapper.toResponse(repositoryTransaction);
     }
