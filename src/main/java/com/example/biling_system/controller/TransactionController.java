@@ -6,6 +6,7 @@ import com.example.biling_system.dto.response.TransactionResponse;
 import com.example.biling_system.model.Bill;
 import com.example.biling_system.model.Transaction;
 import com.example.biling_system.service.TransactionService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -25,7 +26,7 @@ public class TransactionController {
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
     @PostMapping("/checkout")
-    public ResponseEntity<ApiResponse<TransactionResponse>> createTransaction(@RequestBody TransactionRequest transactionRequest) {
+    public ResponseEntity<ApiResponse<TransactionResponse>> createTransaction(@RequestBody @Valid TransactionRequest transactionRequest) {
         ApiResponse<TransactionResponse> apiResponse = new ApiResponse<>();
         TransactionResponse transaction = transactionService.createTransaction(transactionRequest);
         apiResponse.setData(transaction);
