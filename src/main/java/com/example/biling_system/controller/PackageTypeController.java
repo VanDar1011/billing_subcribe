@@ -1,11 +1,12 @@
 package com.example.biling_system.controller;
 
 
+import com.example.biling_system.Repository.PackageTypeRepository;
 import com.example.biling_system.dto.request.PackageTypeRequest;
 import com.example.biling_system.dto.response.ApiResponse;
-import com.example.biling_system.dto.response.CustomerResponse;
 import com.example.biling_system.dto.response.PackageTypeResponse;
-import com.example.biling_system.model.PackageType;
+import com.example.biling_system.exception.AppException;
+import com.example.biling_system.exception.ErrorCode;
 import com.example.biling_system.service.PackageTypeService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -20,9 +21,15 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class PackageTypeController {
     PackageTypeService packageTypeService;
+    PackageTypeRepository packageTypeRepository;
 
     @PostMapping
     public ApiResponse<PackageTypeResponse> create(@RequestBody PackageTypeRequest request) {
+        if (packageTypeRepository.existsByPackageCode(request.getPackageCode())) {
+            throw new AppException(ErrorCode.PACKAGE_EXIST);
+        } else {
+            request.setPackageCode(request.getPackageCode().toUpperCase());
+        }
         ApiResponse<PackageTypeResponse> response = new ApiResponse<>();
         response.setData(packageTypeService.createPackageType(request));
         return response;
