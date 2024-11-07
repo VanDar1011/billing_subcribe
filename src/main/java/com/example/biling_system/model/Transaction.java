@@ -29,6 +29,6 @@ public class Transaction {
     Date transactionDate;
     @Column(name = "total_amount")
     Double totalAmount;
-    @Column(length = 20, name = "status")
-    String status;
+    @Column(length = 20, name = "payment_method")
+    String paymentMethod;
 }

@@ -14,5 +14,5 @@ public class TransactionResponse {
     String transactionCode;
     Date transactionDate;
     Double totalAmount;
-    String status;
+    String paymentMethod;
 }

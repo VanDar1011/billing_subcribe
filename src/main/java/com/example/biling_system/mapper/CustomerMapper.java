@@ -22,6 +22,9 @@ public interface CustomerMapper {
                 .map(Subcriber::getPhoneNumber)
                 .collect(Collectors.toList());
     }
+    default List<CustomerResponse> toCustomerResponseList(List<Customer> list) {
+        return list.stream().map(this::toCustomerResponse).collect(Collectors.toList());
+    }
 
     default Page<CustomerResponse> toCustomerResponsePage(Page<Customer> customers) {
         return customers.map(this::toCustomerResponse);
