@@ -29,6 +29,6 @@ public class SubcriberResponse {
 
     boolean status;
 
-    Customer idCustomer;
+    Long idCustomer;
 
 }

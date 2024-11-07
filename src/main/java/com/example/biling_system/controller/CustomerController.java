@@ -4,9 +4,8 @@ package com.example.biling_system.controller;
 import com.example.biling_system.dto.request.CustomerRequest;
 import com.example.biling_system.dto.response.ApiResponse;
 import com.example.biling_system.dto.response.CustomerResponse;
-import com.example.biling_system.mapper.CustomerMapper;
-import com.example.biling_system.model.Customer;
 import com.example.biling_system.service.CustomerService;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -25,7 +24,7 @@ public class CustomerController {
     CustomerService customerService;
 
     @PostMapping
-    public ApiResponse<CustomerResponse> addCustomer(@RequestBody CustomerRequest request) {
+    public ApiResponse<CustomerResponse> addCustomer(@RequestBody @Valid CustomerRequest request) {
         ApiResponse<CustomerResponse> apiResponse = new ApiResponse<>();
         apiResponse.setData(customerService.createCustomer(request));
         return apiResponse;

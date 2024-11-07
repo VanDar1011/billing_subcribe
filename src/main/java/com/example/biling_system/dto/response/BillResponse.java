@@ -1,7 +1,6 @@
-package com.example.biling_system.dto.request;
+package com.example.biling_system.dto.response;
 
-import com.example.biling_system.model.Customer;
-import com.example.biling_system.model.UsagePackage;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +13,7 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class BillRequest {
+public class BillResponse {
     String billCode;
 
     Date establishtmentDay;
