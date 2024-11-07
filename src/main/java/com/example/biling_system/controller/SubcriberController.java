@@ -1,12 +1,10 @@
 package com.example.biling_system.controller;
 
 
-import com.example.biling_system.dto.SubcriberDTO;
 import com.example.biling_system.dto.request.SubcriberRequest;
 import com.example.biling_system.dto.response.ApiResponse;
 import com.example.biling_system.dto.response.SubcriberResponse;
 import com.example.biling_system.mapper.SubcriberMapper;
-import com.example.biling_system.model.Subcriber;
 import com.example.biling_system.service.SubcriberService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -27,50 +25,58 @@ public class SubcriberController {
     private final SubcriberMapper subcriberMapper;
 
     @PostMapping
-    public ApiResponse<SubcriberResponse> create(@RequestBody SubcriberRequest request) {
+    public ApiResponse<SubcriberResponse> createSubcirber(@RequestBody SubcriberRequest request) {
         ApiResponse<SubcriberResponse> apiResponse = new ApiResponse<>();
         var subcriber = subcriberService.create(request);
         apiResponse.setData(subcriber);
         return apiResponse;
     }
 
-    @GetMapping
-    public ApiResponse<List<SubcriberResponse>> getAllSubcribers(@RequestParam(defaultValue = "0") int page, @RequestParam
-            (defaultValue = "10") int size) {
-        ApiResponse<List<SubcriberResponse>> apiResponse = new ApiResponse<>();
-        apiResponse.setData(subcriberService.findAllSubcribers(page, size).getContent());
-        return apiResponse;
-    }
+//    @GetMapping
+//    public ApiResponse<List<SubcriberResponse>> getAllSubcribers(@RequestParam(defaultValue = "0") int page, @RequestParam
+//            (defaultValue = "10") int size) {
+//        ApiResponse<List<SubcriberResponse>> apiResponse = new ApiResponse<>();
+//        apiResponse.setData(subcriberService.findAllSubcribers(page, size).getContent());
+//        return apiResponse;
+//    }
 
-    @GetMapping("/{id}")
-    public ApiResponse<SubcriberResponse> getSubcriberById(@PathVariable("id") long id) {
-        ApiResponse<SubcriberResponse> apiResponse = new ApiResponse<>();
-        var subcriber = subcriberService.findSubcriberById(id);
-        apiResponse.setData(subcriber);
-        return apiResponse;
-    }
+//    @GetMapping("/{id}")
+//    public ApiResponse<SubcriberResponse> getSubcriberById(@PathVariable("id") long id) {
+//        ApiResponse<SubcriberResponse> apiResponse = new ApiResponse<>();
+//        var subcriber = subcriberService.findSubcriberById(id);
+//        apiResponse.setData(subcriber);
+//        return apiResponse;
+//    }
 
-    @PutMapping("/{id}")
-    public ApiResponse<SubcriberResponse> updateSubcriberById(@PathVariable("id") long id, @RequestBody SubcriberRequest request) {
-        ApiResponse<SubcriberResponse> apiResponse = new ApiResponse<>();
-        var subcriber = subcriberService.updateSubcriber(id, request);
-        apiResponse.setData(subcriber);
-        return apiResponse;
-    }
+//    @PutMapping("/{id}")
+//    public ApiResponse<SubcriberResponse> updateSubcriberById(@PathVariable("id") long id, @RequestBody SubcriberRequest request) {
+//        ApiResponse<SubcriberResponse> apiResponse = new ApiResponse<>();
+//        var subcriber = subcriberService.updateSubcriber(id, request);
+//        apiResponse.setData(subcriber);
+//        return apiResponse;
+//    }
 
-    @DeleteMapping("/{id}")
-    public ApiResponse<SubcriberResponse> deleteSubcriberById(@PathVariable("id") long id) {
-        ApiResponse<SubcriberResponse> apiResponse = new ApiResponse<>();
-        var subcriber = subcriberService.deleteSubcriber(id);
-        if (subcriber != null) {
-            apiResponse.setData(subcriber);
-        }
-        return apiResponse;
-    }
+    //    @DeleteMapping("/{id}")
+//    public ApiResponse<SubcriberResponse> deleteSubcriberById(@PathVariable("id") long id) {
+//        ApiResponse<SubcriberResponse> apiResponse = new ApiResponse<>();
+//        var subcriber = subcriberService.deleteSubcriber(id);
+//        if (subcriber != null) {
+//            apiResponse.setData(subcriber);
+//        }
+//        return apiResponse;
+//    }
     @GetMapping("/search")
-    public ResponseEntity<ApiResponse<List<SubcriberDTO>>> searchSubcriber(@Param("cccd") String cccd){
-        ApiResponse<List<SubcriberDTO>> apiResponse = new ApiResponse<>();
-        List<SubcriberDTO> listSubcriber = subcriberService.searchSubcriberByCCC(cccd);
+    public ResponseEntity<ApiResponse<List<SubcriberResponse>>> searchSubcriber(@RequestParam(required = false) String cccd,
+                                                                                @RequestParam(required = false) String phone) {
+        ApiResponse<List<SubcriberResponse>> apiResponse = new ApiResponse<>();
+        List<SubcriberResponse> listSubcriber;
+        if (cccd != null && !cccd.isBlank()) {
+            listSubcriber =
+                    subcriberService.searchSubcriberByCCCD(cccd);
+        } else {
+             listSubcriber =
+                    subcriberService.searchSubcriberByPhoneNumber(phone);
+        }
 
         apiResponse.setData(listSubcriber);
         return ResponseEntity.status(200).body(apiResponse);

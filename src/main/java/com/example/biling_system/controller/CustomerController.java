@@ -29,22 +29,22 @@ public class CustomerController {
 
     @PostMapping
     public ApiResponse<CustomerResponse> addCustomer(@RequestBody @Valid CustomerRequest request) {
-        if (customerRepository.existsCustomersByCustomerCode(request.getCodeCus())){
-            throw new AppException(ErrorCode.CUSTOMER_EXIST);
-        }
+//        if (customerRepository.existsCustomersByCustomerCode(request.getCodeCus())){
+//            throw new AppException(ErrorCode.CUSTOMER_EXIST);
+//        }
         ApiResponse<CustomerResponse> apiResponse = new ApiResponse<>();
         apiResponse.setData(customerService.createCustomer(request));
         return apiResponse;
     }
-
-    @GetMapping
-    public ApiResponse<List<CustomerResponse>> getAllCustomers(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        ApiResponse<List<CustomerResponse>> apiResponse = new ApiResponse<>();
-        apiResponse.setData(customerService.findAllCustomers(page, size).getContent());
-        return apiResponse;
-    }
+//
+//    @GetMapping
+//    public ApiResponse<List<CustomerResponse>> getAllCustomers(
+//            @RequestParam(defaultValue = "0") int page,
+//            @RequestParam(defaultValue = "10") int size) {
+//        ApiResponse<List<CustomerResponse>> apiResponse = new ApiResponse<>();
+//        apiResponse.setData(customerService.findAllCustomers(page, size).getContent());
+//        return apiResponse;
+//    }
 
     @GetMapping("/{id}")
     public ApiResponse<CustomerResponse> getCustomer(@PathVariable("id") long id) {

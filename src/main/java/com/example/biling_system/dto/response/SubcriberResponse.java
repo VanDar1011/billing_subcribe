@@ -1,7 +1,6 @@
 package com.example.biling_system.dto.response;
 
 
-import com.example.biling_system.model.Customer;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -30,5 +30,6 @@ public class SubcriberResponse {
     boolean status;
 
     Long idCustomer;
+    List<UsagePackageResponse> usagePackages;
 
 }

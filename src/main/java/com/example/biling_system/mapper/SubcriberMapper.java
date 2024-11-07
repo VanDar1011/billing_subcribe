@@ -21,7 +21,7 @@ public interface SubcriberMapper {
     Subcriber toSubcriber(SubcriberRequest subcriber);
 
     List<SubcriberDTO> toSubcriberDTOList(List<Subcriber> subcribers);
-
+    List<SubcriberResponse> toSubcriberRespnoseList(List<Subcriber> subcribers);
     @Mapping(target = "idCustomer", source = "idCustomer")
     SubcriberResponse toSubcriberResponse(Subcriber subcriber);
 
