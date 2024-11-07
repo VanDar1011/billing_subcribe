@@ -16,25 +16,24 @@ import java.time.LocalDate;
 @Builder
 public class CustomerRequest {
 
-    @NotBlank
+    @NotBlank(message = "CODE_CUS_NOT_VALID")
     String codeCus;
-    @NotNull
+    @NotNull(message = "NAME_NOT_VALID")
     String name;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    @Past
+    @Past(message = "DATE_NOT_VALID")
     LocalDate dateOfBirth;
 
-    @Pattern(regexp = "^(Male|Female|Other)$")
+    @Pattern(regexp = "^(Male|Female|Other)$", message = "GENDER_NOT_VALID")
     String gender;
 
     String address;
 
-    @Email
+    @Email(message = "EMAIL_NOT_VALID")
     String email;
 
-    @Size(max = 12)
-    @NotBlank
+    @Pattern(regexp = "\\d{12}", message = "IDENTY_NOT_VALID")
     String identifyCode;
 
 

@@ -29,7 +29,7 @@ public class CustomerController {
 
     @PostMapping
     public ApiResponse<CustomerResponse> addCustomer(@RequestBody @Valid CustomerRequest request) {
-        if (customerRepository.existsCustomersByCustomerCode(request.getCodeCus())){
+        if (customerRepository.existsByCodeCus(request.getCodeCus())){
             throw new AppException(ErrorCode.CUSTOMER_EXIST);
         }
         ApiResponse<CustomerResponse> apiResponse = new ApiResponse<>();

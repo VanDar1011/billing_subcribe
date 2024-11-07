@@ -2,6 +2,7 @@ package com.example.biling_system.Repository;
 
 
 import com.example.biling_system.model.Customer;
+import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -10,5 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface CustomerRepository extends JpaRepository<Customer,Long> {
 //    @Query("SELECT c FROM Customer c WHERE c.identifyCode = :identifyCode")
     Customer findByIdentifyCode(String identifyCode);
-    boolean existsCustomersByCustomerCode(String customerCode);
+    boolean existsByCodeCus(String customerCode);
+
+
 }
