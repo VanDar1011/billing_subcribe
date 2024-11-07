@@ -4,13 +4,18 @@ package com.example.biling_system.controller;
 import com.example.biling_system.dto.request.CustomerRequest;
 import com.example.biling_system.dto.response.ApiResponse;
 import com.example.biling_system.dto.response.CustomerResponse;
+import com.example.biling_system.mapper.CustomerMapper;
+import com.example.biling_system.model.Customer;
 import com.example.biling_system.service.CustomerService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.repository.query.Param;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/customers")
@@ -58,5 +63,13 @@ public class CustomerController {
             apiResponse.setData(customer);
         }
         return apiResponse;
+    }
+
+    @GetMapping ("/search")
+    public ResponseEntity<ApiResponse<CustomerResponse>> searchByCCCd(@Param("cccd") String cccd) {
+        ApiResponse<CustomerResponse> apiResponse = new ApiResponse<>();
+        CustomerResponse customerResponse = customerService.searchCustomerByCCCD(cccd);
+        apiResponse.setData(customerResponse);
+        return ResponseEntity.status(200).body(apiResponse);
     }
 }

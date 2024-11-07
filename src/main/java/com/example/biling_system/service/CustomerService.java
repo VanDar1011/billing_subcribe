@@ -2,6 +2,7 @@ package com.example.biling_system.service;
 
 
 import com.example.biling_system.Repository.CustomerRepository;
+import com.example.biling_system.dto.CustomerDTO;
 import com.example.biling_system.dto.request.CustomerRequest;
 import com.example.biling_system.dto.response.CustomerResponse;
 import com.example.biling_system.exception.AppException;
@@ -15,6 +16,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -55,4 +58,12 @@ public class CustomerService {
         customerRepository.delete(customer);
         return customerMapper.toCustomerResponse(customer);
     }
+    public CustomerResponse searchCustomerByCCCD(String cccd ) {
+        Customer customer = customerRepository.findByIdentifyCode(cccd);
+        if(customer == null) {
+            throw new AppException(ErrorCode.CUSTOMER_NOT_FOUND);
+        }
+        return customerMapper.toCustomerResponse(customer);
+    }
+
 }
