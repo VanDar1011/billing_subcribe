@@ -1,9 +1,12 @@
 package com.example.biling_system.controller;
 
 
+import com.example.biling_system.Repository.CustomerRepository;
 import com.example.biling_system.dto.request.CustomerRequest;
 import com.example.biling_system.dto.response.ApiResponse;
 import com.example.biling_system.dto.response.CustomerResponse;
+import com.example.biling_system.exception.AppException;
+import com.example.biling_system.exception.ErrorCode;
 import com.example.biling_system.service.CustomerService;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
@@ -22,9 +25,13 @@ import java.util.Optional;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class CustomerController {
     CustomerService customerService;
+    CustomerRepository customerRepository;
 
     @PostMapping
     public ApiResponse<CustomerResponse> addCustomer(@RequestBody @Valid CustomerRequest request) {
+        if (customerRepository.existsCustomersByCustomerCode(request.getCodeCus())){
+            throw new AppException(ErrorCode.CUSTOMER_EXIST);
+        }
         ApiResponse<CustomerResponse> apiResponse = new ApiResponse<>();
         apiResponse.setData(customerService.createCustomer(request));
         return apiResponse;
