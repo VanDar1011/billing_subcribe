@@ -22,14 +22,21 @@ public enum ErrorCode {
     SERI_PHONE_NUMBER_VALID(1025, "Serial Number must be at least 20 characters"),
 
 
-    PACKAGE_TYPE_NOT_FOUND(1003, "Package Type Not Found"),
-    PACKAGE_EXIST(1004, "PackageType Already Exist"),
-    PACKAGE_NULL(1005, "Must be filled out"),
-    PACKAGE_NOT_VALID(1006, "PackageType must be at least 10 character"),
+    PACKAGE_TYPE_NOT_FOUND(1030, "Package Type Not Found"),
+    PACKAGE_EXIST(1031, "PackageType Already Exist"),
+    PACKAGE_NULL(1032, "Must be filled out"),
+    PACKAGE_NOT_VALID(1033, "PackageType must be at least 10 character"),
 
 
-    USAGE_PACKAGE_NOT_FOUND(1004, "Usage Package Not Found"),
-    BILL_NOT_FOUND(1005, "Bill Not Found"),
+    USAGE_PACKAGE_NOT_FOUND(1040, "Usage Package Not Found"),
+    USAGE_PACKAGE_NULL(1041, "Must be filled out"),
+    NOTE_VALID(1042, "Note is too long"),
+
+
+    BILL_NOT_FOUND(1050, "Bill Not Found"),
+    BILL_EXIST(1051, "Bill Already Exist"),
+    BILL_NULL(1052, "Must be filled out"),
+    BILL_CODE_NOT_VALID(1053, "Code Number must be at least 10 character"),
 
 
     ;
