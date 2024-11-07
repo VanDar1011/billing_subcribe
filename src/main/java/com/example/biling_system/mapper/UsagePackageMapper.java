@@ -16,9 +16,9 @@ public interface UsagePackageMapper {
     @Mapping(target = "IDsubcriber" , source = "IDsubcriber" )
     @Mapping(target = "idPackageType", source = "idPackageType")
     UsagePackage toUsagePackage(UsagePackageRequest request);
-
-    @Mapping(target = "IDsubcriber" , source = "IDsubcriber" )
-    @Mapping(target = "idPackageType" , source = "idPackageType" )
+//
+//    @Mapping(target = "IDsubcriber" , source = "IDsubcriber" )
+//    @Mapping(target = "idPackageType" , source = "idPackageType" )
     UsagePackageResponse toUsagePackageResponse(UsagePackage usagePackage);
 
     default Page<UsagePackageResponse> toUsagePackagePageResponse(Page<UsagePackage> usagePackages) {

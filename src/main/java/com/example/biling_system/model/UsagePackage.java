@@ -34,6 +34,4 @@ public class UsagePackage {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_packagetype", referencedColumnName = "id_packagetype")
     PackageType idPackageType;
-
-
 }

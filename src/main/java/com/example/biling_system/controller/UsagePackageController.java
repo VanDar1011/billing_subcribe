@@ -16,7 +16,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequestMapping("/usagepackages")
-public class UsagePackageController {
+public class
+UsagePackageController {
     UsagePackageService usagePackageService;
 
     @PostMapping

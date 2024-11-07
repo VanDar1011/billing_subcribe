@@ -62,13 +62,25 @@ public class SubcriberService {
         subcriberRepository.delete(subcriber);
         return subcriberMapper.toSubcriberResponse(subcriber);
     }
-    public List<SubcriberDTO> searchSubcriberByCCC(String cccd){
+    public List<SubcriberResponse> searchSubcriberByCCCD(String cccd){
         Customer customer = customerRepository.findByIdentifyCode(cccd);
         if(customer == null) {
             throw new AppException(ErrorCode.CUSTOMER_NOT_FOUND);
         }
-        List<SubcriberDTO> subcriberDTOList = subcriberMapper.toSubcriberDTOList(customer.getSubcribers());
-        return subcriberDTOList;
+        List<SubcriberResponse> subcriberResponses =
+                subcriberMapper.toSubcriberRespnoseList(customer.getSubcribers());
+        return subcriberResponses;
+
+    }
+    public List<SubcriberResponse> searchSubcriberByPhoneNumber(String phoneNumber){
+        Subcriber subcriber = subcriberRepository.findByPhoneNumber(phoneNumber);
+        if(subcriber == null) {
+            throw new AppException(ErrorCode.SUBCRIBER_NOT_FOUND);
+        }
+        List<SubcriberResponse> subcriberResponses = new ArrayList<>();
+        SubcriberResponse subcriberResponse = subcriberMapper.toSubcriberResponse(subcriber);
+        subcriberResponses.add(subcriberResponse);
+        return subcriberResponses;
 
     }
 }

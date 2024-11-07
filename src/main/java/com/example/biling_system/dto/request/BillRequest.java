@@ -26,5 +26,6 @@ public class BillRequest {
     String status;
 
     Long idUsagePackage;
+    // hoa don cua ki nao
 
 }
