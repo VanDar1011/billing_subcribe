@@ -2,7 +2,6 @@ package com.example.biling_system.service;
 
 
 import com.example.biling_system.Repository.CustomerRepository;
-import com.example.biling_system.dto.CustomerDTO;
 import com.example.biling_system.dto.request.CustomerRequest;
 import com.example.biling_system.dto.response.CustomerResponse;
 import com.example.biling_system.exception.AppException;

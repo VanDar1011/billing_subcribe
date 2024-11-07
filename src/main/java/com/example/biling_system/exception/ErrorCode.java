@@ -5,12 +5,13 @@ public enum ErrorCode {
 
     CUSTOMER_NOT_FOUND(1010, "Customer Not Found"),
     CUSTOMER_EXIST(1011, "Customer Already Exist"),
-    CODE_CUS_NOT_VALID(1012, "CodeCustomer must be filled out without spaces"),
-    NAME_NOT_VALID(1013, "Name must be filled"),
-    DATE_NOT_VALID(1014, "Date must be in the past"),
-    GENDER_NOT_VALID(1015, "please choose gender : male or female or other"),
-    EMAIL_NOT_VALID(1016, "Email must be @gmail.com"),
-    IDENTIFY_NOT_VALID(1017, "Identify Code must at least 12 character"),
+    CUSTOMER_NULL(1012, "Must be filled out"),
+    CODE_CUS_NOT_VALID(1013, "CodeCustomer must be filled out without spaces and at least 20 characters"),
+    NAME_NOT_VALID(1014, "Name must be filled and at least 50 characters"),
+    DATE_NOT_VALID(1015, "Date must be in the past"),
+    GENDER_NOT_VALID(1016, "please choose gender : male or female or other"),
+    EMAIL_NOT_VALID(1017, "Email must be @gmail.com"),
+    IDENTIFY_NOT_VALID(1018, "Identify Code must at least 12 character and not spaces"),
 
 
     SUBCRIBER_NOT_FOUND(1020, "Subcriber Not Found"),
