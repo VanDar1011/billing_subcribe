@@ -1,10 +1,13 @@
 package com.example.biling_system.controller;
 
 
+import com.example.biling_system.Repository.SubcriberRepository;
 import com.example.biling_system.dto.SubcriberDTO;
 import com.example.biling_system.dto.request.SubcriberRequest;
 import com.example.biling_system.dto.response.ApiResponse;
 import com.example.biling_system.dto.response.SubcriberResponse;
+import com.example.biling_system.exception.AppException;
+import com.example.biling_system.exception.ErrorCode;
 import com.example.biling_system.mapper.SubcriberMapper;
 import com.example.biling_system.model.Subcriber;
 import com.example.biling_system.service.SubcriberService;
@@ -24,10 +27,15 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class SubcriberController {
     SubcriberService subcriberService;
-    private final SubcriberMapper subcriberMapper;
+    SubcriberRepository subcriberRepository;
 
     @PostMapping
     public ApiResponse<SubcriberResponse> create(@RequestBody SubcriberRequest request) {
+        boolean exists = subcriberRepository.existsByCodeNumber(request.getCodeNumber())
+                || subcriberRepository.existsByPhoneNumber(request.getPhoneNumber());
+        if (exists){
+            throw new AppException(ErrorCode.PHONE_EXIST);
+        }
         ApiResponse<SubcriberResponse> apiResponse = new ApiResponse<>();
         var subcriber = subcriberService.create(request);
         apiResponse.setData(subcriber);

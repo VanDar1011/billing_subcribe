@@ -8,4 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SubcriberRepository extends JpaRepository<Subcriber, Long> {
 
+    boolean existsByCodeNumber(String codeNumber);
+    boolean existsByPhoneNumber(String phoneNumber);
+
 }
