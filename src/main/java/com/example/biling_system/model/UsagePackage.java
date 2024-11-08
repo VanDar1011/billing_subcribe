@@ -18,7 +18,7 @@ import java.sql.Date;
 public class UsagePackage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_usagepackage")
+    @Column(name = "id_usage_package")
     long id;
     @Column(name = "start_day")
     Date startDay;
@@ -26,12 +26,12 @@ public class UsagePackage {
     Date endDay;
     @Column(length = 20, name = "check_status")
     String checkoutStatus;
-    @Column(length = 20, name = "Note")
+    @Column(length = 20, name = "note")
     String note;
     @ManyToOne
-    @JoinColumn(name = "id_subcriber", referencedColumnName = "id_phonenumber")
+    @JoinColumn(name = "id_subcriber", referencedColumnName = "id_phone_number")
     Subcriber IDsubcriber;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_packagetype", referencedColumnName = "id_packagetype")
+    @JoinColumn(name = "id_package_type", referencedColumnName = "id_package_type")
     PackageType idPackageType;
 }

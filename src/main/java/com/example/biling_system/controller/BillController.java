@@ -33,7 +33,8 @@ public class BillController {
     }
 
     @GetMapping
-    public ApiResponse<List<BillResponse>> getAllBills(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+    public ApiResponse<List<BillResponse>> getAllBills(@RequestParam(defaultValue = "0") int page,
+                                                       @RequestParam(defaultValue = "10") int size) {
         ApiResponse<List<BillResponse>> response = new ApiResponse<>();
         response.setData(billService.findAllBills(page, size).getContent());
         return response;

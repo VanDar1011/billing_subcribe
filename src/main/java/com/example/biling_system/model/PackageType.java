@@ -15,15 +15,15 @@ import java.util.List;
 public class PackageType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_packagetype")
+    @Column(name = "id_package_type")
     long id;
-    @Column(length = 10, name = "packagetype_code", unique = true)
+    @Column(length = 10, name = "package_type_code", unique = true)
     String packageCode;
-    @Column(length = 50, name = "packagetype_name")
+    @Column(length = 50, name = "package_type_name")
     String packageName;
-    @Column(length = 50, name = "packagetype_capacity")
+    @Column(length = 50, name = "package_type_capacity")
     String packageCapacity;
-    @Column(name = "packagetype_price")
+    @Column(name = "package_type_price")
     Double packagePrice;
 
     @OneToMany(mappedBy = "idPackageType", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

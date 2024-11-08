@@ -46,19 +46,22 @@ public class SubcriberService {
     }
 
     public SubcriberResponse findSubcriberById(long id) {
-        var subcriber = subcriberRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.SUBCRIBER_NOT_FOUND));
+        var subcriber = subcriberRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorCode.SUBCRIBER_NOT_FOUND));
         return subcriberMapper.toSubcriberResponse(subcriber);
     }
 
     public SubcriberResponse updateSubcriber(long id, SubcriberRequest request) {
-        var subcriber = subcriberRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.SUBCRIBER_NOT_FOUND));
+        var subcriber = subcriberRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorCode.SUBCRIBER_NOT_FOUND));
         subcriber = subcriberMapper.toSubcriber(request);
         subcriberRepository.save(subcriber);
         return subcriberMapper.toSubcriberResponse(subcriber);
     }
 
     public SubcriberResponse deleteSubcriber(long id) {
-        var subcriber = subcriberRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.SUBCRIBER_NOT_FOUND));
+        var subcriber = subcriberRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorCode.SUBCRIBER_NOT_FOUND));
         subcriberRepository.delete(subcriber);
         return subcriberMapper.toSubcriberResponse(subcriber);
     }

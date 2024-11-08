@@ -19,14 +19,17 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class TransactionController {
     private final TransactionService transactionService;
+
     @GetMapping
     public ResponseEntity<ApiResponse<String>> getTransactions() {
         ApiResponse<String> apiResponse = new ApiResponse<>();
         apiResponse.setData(transactionService.genTransactionCode());
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
+
     @PostMapping("/checkout")
-    public ResponseEntity<ApiResponse<TransactionResponse>> createTransaction(@RequestBody @Valid TransactionRequest transactionRequest) {
+    public ResponseEntity<ApiResponse<TransactionResponse>>
+    createTransaction(@RequestBody @Valid TransactionRequest transactionRequest) {
         ApiResponse<TransactionResponse> apiResponse = new ApiResponse<>();
         TransactionResponse transaction = transactionService.createTransaction(transactionRequest);
         apiResponse.setData(transaction);

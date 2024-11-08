@@ -46,19 +46,22 @@ public class UsagePackageService {
     }
 
     public UsagePackageResponse findUsagePackageById(long id) {
-        var usagepackage = usagePackageRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USAGE_PACKAGE_NOT_FOUND));
+        var usagepackage = usagePackageRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorCode.USAGE_PACKAGE_NOT_FOUND));
         return usagePackageMapper.toUsagePackageResponse(usagepackage);
     }
 
     public UsagePackageResponse updateUsagePackage(long id, UsagePackageRequest request) {
-        var usagepackage = usagePackageRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USAGE_PACKAGE_NOT_FOUND));
+        var usagepackage = usagePackageRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorCode.USAGE_PACKAGE_NOT_FOUND));
         usagepackage = usagePackageMapper.toUsagePackage(request);
         usagePackageRepository.save(usagepackage);
         return usagePackageMapper.toUsagePackageResponse(usagepackage);
     }
 
     public UsagePackageResponse deleteUsagePackage(long id) {
-        var usagepackage = usagePackageRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USAGE_PACKAGE_NOT_FOUND));
+        var usagepackage = usagePackageRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorCode.USAGE_PACKAGE_NOT_FOUND));
         usagePackageRepository.delete(usagepackage);
         return usagePackageMapper.toUsagePackageResponse(usagepackage);
     }

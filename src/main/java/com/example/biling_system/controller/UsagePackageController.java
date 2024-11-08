@@ -28,7 +28,8 @@ UsagePackageController {
     }
 
     @GetMapping
-    public ApiResponse<List<UsagePackageResponse>> findAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+    public ApiResponse<List<UsagePackageResponse>> findAll(@RequestParam(defaultValue = "0") int page,
+                                                           @RequestParam(defaultValue = "10") int size) {
         ApiResponse<List<UsagePackageResponse>> response = new ApiResponse<>();
         response.setData(usagePackageService.findAllUsagePackages(page, size).getContent());
         return response;
@@ -42,7 +43,8 @@ UsagePackageController {
     }
 
     @PutMapping("/{id}")
-    public ApiResponse<UsagePackageResponse> update(@PathVariable("id") long id, @RequestBody UsagePackageRequest request) {
+    public ApiResponse<UsagePackageResponse> update(@PathVariable("id") long id,
+                                                    @RequestBody UsagePackageRequest request) {
         ApiResponse<UsagePackageResponse> response = new ApiResponse<>();
         response.setData(usagePackageService.updateUsagePackage(id, request));
         return response;

@@ -30,6 +30,7 @@ public class SubcriberResponse {
     boolean status;
 
     Long idCustomer;
+
     List<UsagePackageResponse> usagePackages;
 
 }

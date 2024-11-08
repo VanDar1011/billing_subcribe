@@ -36,7 +36,8 @@ public class PackageTypeController {
     }
 
     @GetMapping
-    public ApiResponse<List<PackageTypeResponse>> getAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+    public ApiResponse<List<PackageTypeResponse>> getAll(@RequestParam(defaultValue = "0") int page,
+                                                         @RequestParam(defaultValue = "10") int size) {
         ApiResponse<List<PackageTypeResponse>> response = new ApiResponse<>();
         response.setData(packageTypeService.findAllPackageTypes(page, size).getContent());
         return response;
@@ -50,7 +51,8 @@ public class PackageTypeController {
     }
 
     @PutMapping("/{id}")
-    public ApiResponse<PackageTypeResponse> update(@PathVariable("id") long id, @RequestBody PackageTypeRequest request) {
+    public ApiResponse<PackageTypeResponse> update(@PathVariable("id") long id,
+                                                   @RequestBody PackageTypeRequest request) {
         ApiResponse<PackageTypeResponse> response = new ApiResponse<>();
         var packageType = packageTypeService.updatePackageTypeById(id, request);
         response.setData(packageType);

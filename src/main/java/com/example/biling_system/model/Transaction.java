@@ -23,7 +23,7 @@ public class Transaction {
     @Column(length = 13, name = "transaction_code", unique = true)
     String transactionCode;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "bill_id", referencedColumnName = "id_bill")
+    @JoinColumn(name = "id_bill", referencedColumnName = "id_bill")
     Bill idBill;
     @Column(name = "transaction_date")
     Date transactionDate;

@@ -37,19 +37,22 @@ public class PackageTypeService {
     }
 
     public PackageTypeResponse findPackageTypeById(long id) {
-        var packageType = packageTypeRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.PACKAGE_TYPE_NOT_FOUND));
+        var packageType = packageTypeRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorCode.PACKAGE_TYPE_NOT_FOUND));
         return packageTypeMapper.toPackageTypeResponse(packageType);
     }
 
     public PackageTypeResponse updatePackageTypeById(long id, PackageTypeRequest request) {
-        var packageType = packageTypeRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.PACKAGE_TYPE_NOT_FOUND));
+        var packageType = packageTypeRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorCode.PACKAGE_TYPE_NOT_FOUND));
         packageType = packageTypeMapper.toPackageType(request);
         packageTypeRepository.save(packageType);
         return packageTypeMapper.toPackageTypeResponse(packageType);
     }
 
     public PackageTypeResponse deletePackageTypeById(long id) {
-        var packageType = packageTypeRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.PACKAGE_TYPE_NOT_FOUND));
+        var packageType = packageTypeRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorCode.PACKAGE_TYPE_NOT_FOUND));
         packageTypeRepository.delete(packageType);
         return packageTypeMapper.toPackageTypeResponse(packageType);
     }
