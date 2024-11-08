@@ -26,6 +26,7 @@ import java.util.List;
 public class UsagePackageService {
     UsagePackageRepository usagePackageRepository;
     UsagePackageMapper usagePackageMapper;
+    BillService billService;
 
     public UsagePackageResponse createUsagePackage(UsagePackageRequest request) {
         UsagePackage usagePackage = usagePackageMapper.toUsagePackage(request);
@@ -42,6 +43,7 @@ public class UsagePackageService {
         List<UsagePackage> listUsagePacke = usagePackageRepository.findTimeBetweenStartAndEnd(cronTime);
         List<UsagePackageResponse> responseList =
                 usagePackageMapper.toUsagePackageResponseList(listUsagePacke);
+        billService.createBillCrontab(responseList,cronTime);
         return responseList;
     }
 

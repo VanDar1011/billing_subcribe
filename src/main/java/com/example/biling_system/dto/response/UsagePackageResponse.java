@@ -16,6 +16,7 @@ import java.sql.Date;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UsagePackageResponse {
+    long id;
     Date startDay;
 
     Date endDay;

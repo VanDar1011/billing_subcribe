@@ -3,10 +3,7 @@ package com.example.biling_system.dto.request;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.sql.Date;
@@ -15,17 +12,18 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@ToString
 public class BillRequest {
 
     @NotNull(message = "BILL_NULL")
     @Size(max = 10, message = "BILL_CODE_NOT_VALID")
     String billCode;
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
+//    @JsonFormat(pattern = "dd/MM/yyyy")
     @NotNull(message = "BILL_NULL")
     Date establishtmentDay;
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
+//    @JsonFormat(pattern = "dd/MM/yyyy")
     @NotNull(message = "BILL_NULL")
     Date collectionDay;
 
@@ -33,7 +31,7 @@ public class BillRequest {
     Double totalAmount;
 
     @NotNull(message = "BILL_NULL")
-    String status;
+    String status = "pending";
 
     @NotNull(message = "BILL_NULL")
     Long idUsagePackage;
