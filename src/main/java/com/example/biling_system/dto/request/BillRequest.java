@@ -17,25 +17,25 @@ import java.sql.Date;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class BillRequest {
 
-    @NotNull(message = "BILL_NULL")
+    @NotNull(message = "NOT_NULL")
     @Size(max = 10, message = "BILL_CODE_NOT_VALID")
     String billCode;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    @NotNull(message = "BILL_NULL")
+    @NotNull(message = "NOT_NULL")
     Date establishtmentDay;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    @NotNull(message = "BILL_NULL")
+    @NotNull(message = "NOT_NULL")
     Date collectionDay;
 
-    @NotNull(message = "BILL_NULL")
+    @NotNull(message = "NOT_NULL")
     Double totalAmount;
 
-    @NotNull(message = "BILL_NULL")
+    @NotNull(message = "NOT_NULL")
     String status;
 
-    @NotNull(message = "BILL_NULL")
+    @NotNull(message = "NOT_NULL")
     Long idUsagePackage;
     int billingMonth;
 

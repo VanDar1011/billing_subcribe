@@ -17,23 +17,23 @@ import java.sql.Date;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UsagePackageRequest {
 
-    @NotNull(message = "USAGE_PACKAGE_NULL")
+    @NotNull(message = "NOT_NULL")
     @JsonFormat(pattern = "dd/MM/yyyy")
     Date startDay;
 
-    @NotNull(message = "USAGE_PACKAGE_NULL")
+    @NotNull(message = "NOT_NULL")
     @JsonFormat(pattern = "dd/MM/yyyy")
     Date endDay;
 
-    @NotNull(message = "USAGE_PACKAGE_NULL")
+    @NotNull(message = "NOT_NULL")
     String checkoutStatus;
 
     @Size(max = 20, message = "NOTE_VALID")
     String note;
 
-    @NotNull(message = "USAGE_PACKAGE_NULL")
+    @NotNull(message = "NOT_NULL")
     Long IDsubcriber;
 
-    @NotNull(message = "USAGE_PACKAGE_NULL")
+    @NotNull(message = "NOT_NULL")
     Long idPackageType;
 }
