@@ -16,6 +16,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -33,6 +37,12 @@ public class UsagePackageService {
         Pageable pageable = PageRequest.of(page, size);
         var usagepackage = usagePackageRepository.findAll(pageable);
         return usagePackageMapper.toUsagePackagePageResponse(usagepackage);
+    }
+    public List<UsagePackageResponse> getUsagePackagesWithinTimeRange(Date cronTime){
+        List<UsagePackage> listUsagePacke = usagePackageRepository.findTimeBetweenStartAndEnd(cronTime);
+        List<UsagePackageResponse> responseList =
+                usagePackageMapper.toUsagePackageResponseList(listUsagePacke);
+        return responseList;
     }
 
     public UsagePackageResponse findUsagePackageById(long id) {

@@ -1,10 +1,13 @@
 package com.example.biling_system.controller;
 
 
+import com.example.biling_system.Repository.SubcriberRepository;
+import com.example.biling_system.dto.SubcriberDTO;
 import com.example.biling_system.dto.request.SubcriberRequest;
 import com.example.biling_system.dto.response.ApiResponse;
 import com.example.biling_system.dto.response.SubcriberResponse;
-import com.example.biling_system.mapper.SubcriberMapper;
+import com.example.biling_system.exception.AppException;
+import com.example.biling_system.exception.ErrorCode;
 import com.example.biling_system.service.SubcriberService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +16,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -22,10 +24,15 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class SubcriberController {
     SubcriberService subcriberService;
-    private final SubcriberMapper subcriberMapper;
+    SubcriberRepository subcriberRepository;
 
     @PostMapping
-    public ApiResponse<SubcriberResponse> createSubcirber(@RequestBody SubcriberRequest request) {
+    public ApiResponse<SubcriberResponse> create(@RequestBody SubcriberRequest request) {
+        boolean exists = subcriberRepository.existsByCodeNumber(request.getCodeNumber())
+                || subcriberRepository.existsByPhoneNumber(request.getPhoneNumber());
+        if (exists){
+            throw new AppException(ErrorCode.PHONE_EXIST);
+        }
         ApiResponse<SubcriberResponse> apiResponse = new ApiResponse<>();
         var subcriber = subcriberService.create(request);
         apiResponse.setData(subcriber);

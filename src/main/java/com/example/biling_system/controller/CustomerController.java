@@ -17,7 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/customers")
@@ -29,9 +29,9 @@ public class CustomerController {
 
     @PostMapping
     public ApiResponse<CustomerResponse> addCustomer(@RequestBody @Valid CustomerRequest request) {
-//        if (customerRepository.existsCustomersByCustomerCode(request.getCodeCus())){
-//            throw new AppException(ErrorCode.CUSTOMER_EXIST);
-//        }
+        if (customerRepository.existsByCodeCus(request.getCodeCus())){
+            throw new AppException(ErrorCode.CUSTOMER_EXIST);
+        }
         ApiResponse<CustomerResponse> apiResponse = new ApiResponse<>();
         apiResponse.setData(customerService.createCustomer(request));
         return apiResponse;

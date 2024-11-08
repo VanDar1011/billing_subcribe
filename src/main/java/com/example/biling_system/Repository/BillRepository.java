@@ -6,5 +6,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BillRepository extends JpaRepository<Bill, Long> {
+
+    boolean existsByBillCode(String billCode);
+
     Bill findBillByBillCode(String billCode);
 }

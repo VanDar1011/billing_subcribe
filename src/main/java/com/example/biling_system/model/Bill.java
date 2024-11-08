@@ -34,4 +34,6 @@ public class Bill {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "idUsagePackage", referencedColumnName = "id_usagepackage")
     UsagePackage idUsagePackage;
+    @Column(name="billing_month")
+    int billingMonth;
 }

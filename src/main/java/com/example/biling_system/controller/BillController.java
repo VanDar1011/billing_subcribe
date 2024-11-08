@@ -1,8 +1,11 @@
 package com.example.biling_system.controller;
 
+import com.example.biling_system.Repository.BillRepository;
 import com.example.biling_system.dto.request.BillRequest;
 import com.example.biling_system.dto.response.ApiResponse;
 import com.example.biling_system.dto.response.BillResponse;
+import com.example.biling_system.exception.AppException;
+import com.example.biling_system.exception.ErrorCode;
 import com.example.biling_system.service.BillService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -17,9 +20,12 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class BillController {
     BillService billService;
-
+    BillRepository billRepository;
     @PostMapping
     public ApiResponse<BillResponse> create(@RequestBody BillRequest request) {
+        if (billRepository.existsByBillCode(request.getBillCode())){
+            throw new AppException(ErrorCode.BILL_EXIST);
+        }
         ApiResponse<BillResponse> response = new ApiResponse<>();
         var bill = billService.createBill(request);
         response.setData(bill);

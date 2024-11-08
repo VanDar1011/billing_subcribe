@@ -1,12 +1,8 @@
 package com.example.biling_system.dto.request;
 
-
-import com.example.biling_system.model.PackageType;
-import com.example.biling_system.model.Subcriber;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,15 +16,24 @@ import java.sql.Date;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UsagePackageRequest {
+
+    @NotNull(message = "USAGE_PACKAGE_NULL")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     Date startDay;
 
+    @NotNull(message = "USAGE_PACKAGE_NULL")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     Date endDay;
 
+    @NotNull(message = "USAGE_PACKAGE_NULL")
     String checkoutStatus;
 
+    @Size(max = 20, message = "NOTE_VALID")
     String note;
 
+    @NotNull(message = "USAGE_PACKAGE_NULL")
     Long IDsubcriber;
 
+    @NotNull(message = "USAGE_PACKAGE_NULL")
     Long idPackageType;
 }

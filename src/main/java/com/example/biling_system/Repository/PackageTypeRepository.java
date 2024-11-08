@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PackageTypeRepository extends JpaRepository<PackageType, Long> {
+    boolean existsByPackageCode(String packageCode);
 
 }
