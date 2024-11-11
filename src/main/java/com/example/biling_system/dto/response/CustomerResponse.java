@@ -14,6 +14,8 @@ import java.util.List;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CustomerResponse {
+    long id;
+
     String codeCus;
 
     String name;

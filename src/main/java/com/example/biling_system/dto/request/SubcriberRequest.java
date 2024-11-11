@@ -19,33 +19,33 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class SubcriberRequest {
 
-    @NotNull(message = "SUBCRIBER_NULL")
+    @NotNull(message = "NOT_NULL")
     @Size(max = 10, message = "CODE_NUMBER_VALID")
     String codeNumber;
 
     @Pattern(regexp = "\\d{10}", message = "PHONE_NUMBER_NOT_VALID")
-    @NotNull(message = "SUBCRIBER_NULL")
+    @NotNull(message = "NOT_NULL")
     String phoneNumber;
 
     @Size(max = 20)
-    @NotNull(message = "SUBCRIBER_NULL")
+    @NotNull(message = "NOT_NULL")
     String phoneNumberType;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    @NotNull(message = "SUBCRIBER_NULL")
+    @NotNull(message = "NOT_NULL")
     LocalDate dayActive;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    @NotNull(message = "SUBCRIBER_NULL")
+    @NotNull(message = "NOT_NULL")
     LocalDate dayInactive;
 
     @Size(max = 20, message = "SERI_PHONE_NUMBER_VALID")
-    @NotNull(message = "SUBCRIBER_NULL")
+    @NotNull(message = "NOT_NULL")
     String seriPhoneNumber;
 
-    @NotNull(message = "SUBCRIBER_NULL")
+    @NotNull(message = "NOT_NULL")
     boolean status;
 
-    @NotNull(message = "SUBCRIBER_NULL")
+    @NotNull(message = "NOT_NULL")
     Long idCustomer;
 }

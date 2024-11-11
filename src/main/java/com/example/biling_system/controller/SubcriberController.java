@@ -2,7 +2,6 @@ package com.example.biling_system.controller;
 
 
 import com.example.biling_system.Repository.SubcriberRepository;
-import com.example.biling_system.dto.SubcriberDTO;
 import com.example.biling_system.dto.request.SubcriberRequest;
 import com.example.biling_system.dto.response.ApiResponse;
 import com.example.biling_system.dto.response.SubcriberResponse;

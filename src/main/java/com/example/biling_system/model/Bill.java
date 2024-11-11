@@ -32,7 +32,7 @@ public class Bill {
     @Column(length = 20)
     String status;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "idUsagePackage", referencedColumnName = "id_usagepackage")
+    @JoinColumn(name = "id_usage_package", referencedColumnName = "id_usage_package")
     UsagePackage idUsagePackage;
     @Column(name="billing_month")
     int billingMonth;

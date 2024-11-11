@@ -17,17 +17,17 @@ import lombok.experimental.FieldDefaults;
 public class PackageTypeRequest {
 
 
-    @NotNull(message = "PACKAGE_NULL")
+    @NotNull(message = "NOT_NULL")
     @Size(max = 10, message = "PACKAGE_NOT_VALID")
     String packageCode;
 
-    @NotNull(message = "PACKAGE_NULL")
+    @NotNull(message = "NOT_NULL")
     String packageName;
 
-    @NotNull(message = "PACKAGE_NULL")
+    @NotNull(message = "NOT_NULL")
     String packageCapacity;
 
-    @NotNull(message = "PACKAGE_NULL")
+    @NotNull(message = "NOT_NULL")
     Double packagePrice;
 
 

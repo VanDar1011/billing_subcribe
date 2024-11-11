@@ -20,19 +20,19 @@ public class Customer {
     @Column(name = "id_customer")
     long id;
 
-    @Column(length = 20, name = "CodeCustomer", unique = true)
+    @Column(length = 20, name = "code_customer", unique = true)
     String codeCus;
-    @Column(length = 50, name = "NameCustomer")
+    @Column(length = 50, name = "name_customer")
     String name;
-    @Column(name = " DateOfBirth")
+    @Column(name = " date_of_birth")
     LocalDate dateOfBirth;
-    @Column(length = 10, name = "Sex")
+    @Column(length = 10, name = "sex")
     String gender;
-    @Column(length = 100, name ="Address")
+    @Column(length = 100, name ="address")
     String address;
-    @Column(length = 100, name = "Email")
+    @Column(length = 100, name = "email")
     String email;
-    @Column(length = 12, name = "IdentifyCode")
+    @Column(length = 12, name = "identify_code")
     String identifyCode;
     @OneToMany(mappedBy = "idCustomer", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Subcriber> subcribers;

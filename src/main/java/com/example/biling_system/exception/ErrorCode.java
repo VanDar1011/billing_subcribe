@@ -5,7 +5,6 @@ public enum ErrorCode {
 
     CUSTOMER_NOT_FOUND(1010, "Customer Not Found"),
     CUSTOMER_EXIST(1011, "Customer Already Exist"),
-    CUSTOMER_NULL(1012, "Must be filled out"),
     CODE_CUS_NOT_VALID(1013, "CodeCustomer must be filled out without spaces and at least 20 characters"),
     NAME_NOT_VALID(1014, "Name must be filled and at least 50 characters"),
     DATE_NOT_VALID(1015, "Date must be in the past"),
@@ -16,7 +15,6 @@ public enum ErrorCode {
 
     SUBCRIBER_NOT_FOUND(1020, "Subcriber Not Found"),
     PHONE_EXIST(1021, "Phone Number or Code Number Already Exist"),
-    SUBCRIBER_NULL(1022, "Must be filled out"),
     CODE_NUMBER_VALID(1023, "Code Number must be at least 10 characters"),
     PHONE_NUMBER_NOT_VALID(1024, "Phone Number must be at least 10 character"),
     SERI_PHONE_NUMBER_VALID(1025, "Serial Number must be at least 20 characters"),
@@ -24,19 +22,19 @@ public enum ErrorCode {
 
     PACKAGE_TYPE_NOT_FOUND(1030, "Package Type Not Found"),
     PACKAGE_EXIST(1031, "PackageType Already Exist"),
-    PACKAGE_NULL(1032, "Must be filled out"),
     PACKAGE_NOT_VALID(1033, "PackageType must be at least 10 character"),
 
 
     USAGE_PACKAGE_NOT_FOUND(1040, "Usage Package Not Found"),
-    USAGE_PACKAGE_NULL(1041, "Must be filled out"),
     NOTE_VALID(1042, "Note is too long"),
 
 
     BILL_NOT_FOUND(1050, "Bill Not Found"),
     BILL_EXIST(1051, "Bill Already Exist"),
-    BILL_NULL(1052, "Must be filled out"),
     BILL_CODE_NOT_VALID(1053, "Code Number must be at least 10 character"),
+
+
+    NOT_NULL(9999, "Must be filled out"),
 
 
     ;

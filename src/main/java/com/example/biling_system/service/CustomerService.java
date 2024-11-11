@@ -25,6 +25,7 @@ public class CustomerService {
     CustomerRepository customerRepository;
     CustomerMapper customerMapper;
 
+
     public CustomerResponse createCustomer(CustomerRequest request) {
 
         Customer customer = customerMapper.toCustomer(request);
@@ -35,7 +36,8 @@ public class CustomerService {
     }
 
     public CustomerResponse findCustomerById(long id) {
-        var customer = customerRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.CUSTOMER_NOT_FOUND));
+        var customer = customerRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorCode.CUSTOMER_NOT_FOUND));
         return customerMapper.toCustomerResponse(customer);
     }
 

@@ -25,16 +25,16 @@ public class CustomerRequest {
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     @Past(message = "DATE_NOT_VALID")
-    @NotNull(message = "CUSTOMER_NULL")
+    @NotNull(message = "NOT_NULL")
     LocalDate dateOfBirth;
 
     @Pattern(regexp = "^(Male|Female|Other)$", message = "GENDER_NOT_VALID")
-    @NotNull(message = "CUSTOMER_NULL")
+    @NotNull(message = "NOT_NULL")
     @Size(max = 10)
     String gender;
 
     @Size(max = 100)
-    @NotNull(message = "CUSTOMER_NULL")
+    @NotNull(message = "NOT_NULL")
     String address;
 
     @Size(max =100)
