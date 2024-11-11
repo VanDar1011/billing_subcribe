@@ -15,6 +15,8 @@ import java.util.List;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PackageTypeResponse {
+    long id;
+
     String packageCode;
 
     String packageName;

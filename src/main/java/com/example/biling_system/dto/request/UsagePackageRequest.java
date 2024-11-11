@@ -32,8 +32,5 @@ public class UsagePackageRequest {
     String note;
 
     @NotNull(message = "NOT_NULL")
-    Long IDsubcriber;
-
-    @NotNull(message = "NOT_NULL")
     Long idPackageType;
 }

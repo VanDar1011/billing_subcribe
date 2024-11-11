@@ -14,6 +14,8 @@ import java.sql.Date;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class BillResponse {
+    long id;
+
     String billCode;
 
     Date establishtmentDay;

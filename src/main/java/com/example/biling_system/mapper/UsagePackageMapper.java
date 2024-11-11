@@ -12,18 +12,19 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.data.domain.Page;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface UsagePackageMapper {
 
-    @Mapping(target = "IDsubcriber" , source = "IDsubcriber" )
+
     @Mapping(target = "idPackageType", source = "idPackageType")
     UsagePackage toUsagePackage(UsagePackageRequest request);
 //
 //    @Mapping(target = "IDsubcriber" , source = "IDsubcriber" )
-//    @Mapping(target = "idPackageType" , source = "idPackageType" )
+    @Mapping(target = "idPackageType" , source = "idPackageType" )
     UsagePackageResponse toUsagePackageResponse(UsagePackage usagePackage);
 
     default List<UsagePackageResponse> toUsagePackageResponseList(List<UsagePackage> list) {
@@ -52,5 +53,8 @@ public interface UsagePackageMapper {
         PackageType packageType = new PackageType();
         packageType.setId(idPackageType);
         return packageType;
+
     }
+
+
 }

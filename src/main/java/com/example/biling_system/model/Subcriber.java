@@ -35,7 +35,7 @@ public class Subcriber {
     String seriPhoneNumber;
     @Column(name = "status")
     boolean status;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_customer", referencedColumnName = "id_customer")
     Customer idCustomer;
     @OneToMany(mappedBy = "IDsubcriber", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

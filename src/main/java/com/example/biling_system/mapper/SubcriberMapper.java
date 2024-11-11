@@ -6,6 +6,7 @@ import com.example.biling_system.dto.request.SubcriberRequest;
 import com.example.biling_system.dto.response.CustomerResponse;
 import com.example.biling_system.dto.response.SubcriberResponse;
 import com.example.biling_system.model.Customer;
+import com.example.biling_system.model.PackageType;
 import com.example.biling_system.model.Subcriber;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -23,7 +24,12 @@ public interface SubcriberMapper {
     List<SubcriberDTO> toSubcriberDTOList(List<Subcriber> subcribers);
     List<SubcriberResponse> toSubcriberRespnoseList(List<Subcriber> subcribers);
     @Mapping(target = "idCustomer", source = "idCustomer")
+    @Mapping(target = "usagePackages", source = "usagePackages")
     SubcriberResponse toSubcriberResponse(Subcriber subcriber);
+
+    default long map(PackageType packageType) {
+        return packageType != null ? packageType.getId() : 0L;
+    }
 
     default Page<SubcriberResponse> toCustomerResponsePage(Page<Subcriber> subcribers) {
         return subcribers.map(this::toSubcriberResponse);

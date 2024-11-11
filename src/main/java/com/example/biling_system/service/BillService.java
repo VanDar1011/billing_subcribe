@@ -6,6 +6,9 @@ import com.example.biling_system.dto.response.BillResponse;
 import com.example.biling_system.exception.AppException;
 import com.example.biling_system.exception.ErrorCode;
 import com.example.biling_system.mapper.BillMapper;
+import com.example.biling_system.model.UsagePackage;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -20,9 +23,16 @@ import org.springframework.stereotype.Service;
 public class BillService {
     BillRepository billRepository;
     BillMapper billMapper;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public BillResponse createBill(BillRequest request) {
         var bill = billMapper.toBill(request);
+        UsagePackage usagePackage = entityManager.find(UsagePackage.class, request.getIdUsagePackage());
+        if (usagePackage == null) {
+            throw new AppException(ErrorCode.USAGE_PACKAGE_NOT_FOUND);
+        }
+        bill.setIdUsagePackage(usagePackage);
         billRepository.save(bill);
         return billMapper.toBillResponse(bill);
     }

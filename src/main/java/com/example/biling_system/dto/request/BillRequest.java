@@ -37,6 +37,7 @@ public class BillRequest {
 
     @NotNull(message = "NOT_NULL")
     Long idUsagePackage;
+
     int billingMonth;
 
     // hoa don cua ki nao

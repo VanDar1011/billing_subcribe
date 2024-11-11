@@ -7,7 +7,11 @@ import com.example.biling_system.dto.response.UsagePackageResponse;
 import com.example.biling_system.exception.AppException;
 import com.example.biling_system.exception.ErrorCode;
 import com.example.biling_system.mapper.UsagePackageMapper;
+import com.example.biling_system.model.PackageType;
+import com.example.biling_system.model.Subcriber;
 import com.example.biling_system.model.UsagePackage;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -26,9 +30,16 @@ import java.util.List;
 public class UsagePackageService {
     UsagePackageRepository usagePackageRepository;
     UsagePackageMapper usagePackageMapper;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public UsagePackageResponse createUsagePackage(UsagePackageRequest request) {
         UsagePackage usagePackage = usagePackageMapper.toUsagePackage(request);
+        PackageType packageType = entityManager.find(PackageType.class, request.getIdPackageType());
+        if (packageType == null) {
+            throw new AppException(ErrorCode.PACKAGE_TYPE_NOT_FOUND);
+        }
+        usagePackage.setIdPackageType(packageType);
         usagePackageRepository.save(usagePackage);
         return usagePackageMapper.toUsagePackageResponse(usagePackage);
     }
@@ -38,7 +49,8 @@ public class UsagePackageService {
         var usagepackage = usagePackageRepository.findAll(pageable);
         return usagePackageMapper.toUsagePackagePageResponse(usagepackage);
     }
-    public List<UsagePackageResponse> getUsagePackagesWithinTimeRange(Date cronTime){
+
+    public List<UsagePackageResponse> getUsagePackagesWithinTimeRange(Date cronTime) {
         List<UsagePackage> listUsagePacke = usagePackageRepository.findTimeBetweenStartAndEnd(cronTime);
         List<UsagePackageResponse> responseList =
                 usagePackageMapper.toUsagePackageResponseList(listUsagePacke);

@@ -7,6 +7,7 @@ import com.example.biling_system.model.Subcriber;
 import org.mapstruct.Mapper;
 import org.springframework.data.domain.Page;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,10 +19,12 @@ public interface CustomerMapper {
     CustomerResponse toCustomerResponse(Customer customer);
 
     default List<String> toStringList(List<Subcriber> list) {
-        return list.stream()
+        return list != null ? list.stream()
                 .map(Subcriber::getPhoneNumber)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList())
+                : Collections.emptyList();
     }
+
     default List<CustomerResponse> toCustomerResponseList(List<Customer> list) {
         return list.stream().map(this::toCustomerResponse).collect(Collectors.toList());
     }
