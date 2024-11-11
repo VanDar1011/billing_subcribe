@@ -31,9 +31,10 @@ public class Bill {
     Double totalAmount;
     @Column(length = 20)
     String status;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_usage_package", referencedColumnName = "id_usage_package")
-    UsagePackage idUsagePackage;
+//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JoinColumn(name = "idUsagePackage", referencedColumnName = "id_usagepackage")
+//    UsagePackage idUsagePackage;
+    Long idUsagePackage;
     @Column(name="billing_month")
     int billingMonth;
 }

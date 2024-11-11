@@ -30,6 +30,7 @@ import java.util.List;
 public class UsagePackageService {
     UsagePackageRepository usagePackageRepository;
     UsagePackageMapper usagePackageMapper;
+    BillService billService;
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -54,6 +55,7 @@ public class UsagePackageService {
         List<UsagePackage> listUsagePacke = usagePackageRepository.findTimeBetweenStartAndEnd(cronTime);
         List<UsagePackageResponse> responseList =
                 usagePackageMapper.toUsagePackageResponseList(listUsagePacke);
+        billService.createBillCrontab(responseList,cronTime);
         return responseList;
     }
 

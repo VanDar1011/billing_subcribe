@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import java.sql.Date;
-import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
@@ -18,15 +17,16 @@ import java.time.LocalDate;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UsagePackageResponse {
     long id;
+    Date startDay;
 
-    LocalDate startDay;
-
-    LocalDate endDay;
+    Date endDay;
 
     String checkoutStatus;
 
     String note;
 
-    Long idPackageType;
+//    Long IDsubcriber;
+
+    PackageTypeResponse idPackageType;
 
 }

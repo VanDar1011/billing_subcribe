@@ -4,19 +4,16 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.sql.Date;
-import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@ToString
 public class BillRequest {
 
     @NotBlank(message = "NOT_BLANK")
@@ -24,23 +21,23 @@ public class BillRequest {
     String billCode;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    @NotBlank(message = "NOT_BLANK")
-    LocalDate establishtmentDay;
+    @NotNull(message = "BILL_NULL")
+    Date establishtmentDay;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     @NotNull(message = "NOT_BLANK")
-    LocalDate collectionDay;
+    Date collectionDay;
 
-    @NotBlank(message = "NOT_BLANK")
+    @NotNull(message = "NOT_BLANK")
     Double totalAmount;
 
     @NotBlank(message = "NOT_BLANK")
-    String status;
+    String status = "pending";
 
-    @NotBlank(message = "NOT_BLANK")
+    @NotNull(message = "NOT_BLANK")
     Long idUsagePackage;
 
-    @NotBlank(message = "NOT_BLANK")
+    @NotNull(message = "NOT_BLANK")
     int billingMonth;
 
     // hoa don cua ki nao
