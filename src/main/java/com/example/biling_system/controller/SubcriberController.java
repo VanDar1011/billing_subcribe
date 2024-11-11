@@ -8,6 +8,7 @@ import com.example.biling_system.dto.response.SubcriberResponse;
 import com.example.biling_system.exception.AppException;
 import com.example.biling_system.exception.ErrorCode;
 import com.example.biling_system.service.SubcriberService;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -26,7 +27,7 @@ public class SubcriberController {
     SubcriberRepository subcriberRepository;
 
     @PostMapping
-    public ApiResponse<SubcriberResponse> create(@RequestBody SubcriberRequest request) {
+    public ApiResponse<SubcriberResponse> create(@RequestBody @Valid SubcriberRequest request) {
         boolean exists = subcriberRepository.existsByCodeNumber(request.getCodeNumber())
                 || subcriberRepository.existsByPhoneNumber(request.getPhoneNumber());
         if (exists){
@@ -54,23 +55,23 @@ public class SubcriberController {
 //        return apiResponse;
 //    }
 
-//    @PutMapping("/{id}")
-//    public ApiResponse<SubcriberResponse> updateSubcriberById(@PathVariable("id") long id, @RequestBody SubcriberRequest request) {
-//        ApiResponse<SubcriberResponse> apiResponse = new ApiResponse<>();
-//        var subcriber = subcriberService.updateSubcriber(id, request);
-//        apiResponse.setData(subcriber);
-//        return apiResponse;
-//    }
+    @PutMapping("/{id}")
+    public ApiResponse<SubcriberResponse> updateSubcriberById(@PathVariable("id") long id, @RequestBody @Valid SubcriberRequest request) {
+        ApiResponse<SubcriberResponse> apiResponse = new ApiResponse<>();
+        var subcriber = subcriberService.updateSubcriber(id, request);
+        apiResponse.setData(subcriber);
+        return apiResponse;
+    }
 
-    //    @DeleteMapping("/{id}")
-//    public ApiResponse<SubcriberResponse> deleteSubcriberById(@PathVariable("id") long id) {
-//        ApiResponse<SubcriberResponse> apiResponse = new ApiResponse<>();
-//        var subcriber = subcriberService.deleteSubcriber(id);
-//        if (subcriber != null) {
-//            apiResponse.setData(subcriber);
-//        }
-//        return apiResponse;
-//    }
+        @DeleteMapping("/{id}")
+    public ApiResponse<SubcriberResponse> deleteSubcriberById(@PathVariable("id") long id) {
+        ApiResponse<SubcriberResponse> apiResponse = new ApiResponse<>();
+        var subcriber = subcriberService.deleteSubcriber(id);
+        if (subcriber != null) {
+            apiResponse.setData(subcriber);
+        }
+        return apiResponse;
+    }
     @GetMapping("/search")
     public ResponseEntity<ApiResponse<List<SubcriberResponse>>> searchSubcriber(@RequestParam(required = false) String cccd,
                                                                                 @RequestParam(required = false) String phone) {

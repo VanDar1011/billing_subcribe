@@ -5,6 +5,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.sql.Date;
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -12,7 +14,7 @@ import java.sql.Date;
 @FieldDefaults(level= AccessLevel.PRIVATE)
 public class TransactionResponse {
     String transactionCode;
-    Date transactionDate;
+    LocalDate transactionDate;
     Double totalAmount;
     String paymentMethod;
 }

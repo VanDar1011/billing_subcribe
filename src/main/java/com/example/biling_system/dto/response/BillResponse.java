@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
@@ -18,9 +19,9 @@ public class BillResponse {
 
     String billCode;
 
-    Date establishtmentDay;
+    LocalDate establishtmentDay;
 
-    Date collectionDay;
+    LocalDate collectionDay;
 
     Double totalAmount;
 

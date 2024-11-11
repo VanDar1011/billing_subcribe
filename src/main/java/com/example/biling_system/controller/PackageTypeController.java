@@ -8,6 +8,7 @@ import com.example.biling_system.dto.response.PackageTypeResponse;
 import com.example.biling_system.exception.AppException;
 import com.example.biling_system.exception.ErrorCode;
 import com.example.biling_system.service.PackageTypeService;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -24,7 +25,7 @@ public class PackageTypeController {
     PackageTypeRepository packageTypeRepository;
 
     @PostMapping
-    public ApiResponse<PackageTypeResponse> create(@RequestBody PackageTypeRequest request) {
+    public ApiResponse<PackageTypeResponse> create(@RequestBody @Valid PackageTypeRequest request) {
         if (packageTypeRepository.existsByPackageCode(request.getPackageCode())) {
             throw new AppException(ErrorCode.PACKAGE_EXIST);
         } else {
@@ -52,7 +53,7 @@ public class PackageTypeController {
 
     @PutMapping("/{id}")
     public ApiResponse<PackageTypeResponse> update(@PathVariable("id") long id,
-                                                   @RequestBody PackageTypeRequest request) {
+                                                   @RequestBody @Valid PackageTypeRequest request) {
         ApiResponse<PackageTypeResponse> response = new ApiResponse<>();
         var packageType = packageTypeService.updatePackageTypeById(id, request);
         response.setData(packageType);

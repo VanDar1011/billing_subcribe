@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
@@ -18,9 +19,9 @@ import java.sql.Date;
 public class UsagePackageResponse {
     long id;
 
-    Date startDay;
+    LocalDate startDay;
 
-    Date endDay;
+    LocalDate endDay;
 
     String checkoutStatus;
 

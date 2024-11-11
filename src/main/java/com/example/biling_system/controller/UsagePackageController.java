@@ -5,6 +5,7 @@ import com.example.biling_system.dto.request.UsagePackageRequest;
 import com.example.biling_system.dto.response.ApiResponse;
 import com.example.biling_system.dto.response.UsagePackageResponse;
 import com.example.biling_system.service.UsagePackageService;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -21,7 +22,7 @@ UsagePackageController {
     UsagePackageService usagePackageService;
 
     @PostMapping
-    public ApiResponse<UsagePackageResponse> create(@RequestBody UsagePackageRequest request) {
+    public ApiResponse<UsagePackageResponse> create(@RequestBody @Valid UsagePackageRequest request) {
         ApiResponse<UsagePackageResponse> response = new ApiResponse<>();
         response.setData(usagePackageService.createUsagePackage(request));
         return response;
@@ -44,7 +45,7 @@ UsagePackageController {
 
     @PutMapping("/{id}")
     public ApiResponse<UsagePackageResponse> update(@PathVariable("id") long id,
-                                                    @RequestBody UsagePackageRequest request) {
+                                                    @RequestBody @Valid UsagePackageRequest request) {
         ApiResponse<UsagePackageResponse> response = new ApiResponse<>();
         response.setData(usagePackageService.updateUsagePackage(id, request));
         return response;

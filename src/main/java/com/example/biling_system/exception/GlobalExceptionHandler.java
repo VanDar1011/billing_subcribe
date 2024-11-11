@@ -10,7 +10,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @RestControllerAdvice
-public class GlobalExceptionHandler extends RuntimeException {
+public class GlobalExceptionHandler {
 
     @ExceptionHandler
     ResponseEntity<ApiResponse> AppExceptionHandler(AppException e) {
@@ -25,6 +25,15 @@ public class GlobalExceptionHandler extends RuntimeException {
         String enumkey = e.getFieldError().getDefaultMessage();
         ApiResponse apiResponse = new ApiResponse();
         ErrorCode errorCode = ErrorCode.valueOf(enumkey);
+        apiResponse.setCode(errorCode.getCode());
+        apiResponse.setMessage(errorCode.getMessage());
+        return ResponseEntity.badRequest().body(apiResponse);
+    }
+
+    @ExceptionHandler(value = RuntimeException.class)
+    ResponseEntity<ApiResponse> handleRuntimeException(RuntimeException e) {
+        ApiResponse apiResponse = new ApiResponse<>();
+        ErrorCode errorCode = ErrorCode.valueOf(e.getCause().getMessage());
         apiResponse.setCode(errorCode.getCode());
         apiResponse.setMessage(errorCode.getMessage());
         return ResponseEntity.badRequest().body(apiResponse);

@@ -54,7 +54,7 @@ public class CustomerController {
     }
 
     @PutMapping("/{id}")
-    public ApiResponse<CustomerResponse> updateCustomer(@PathVariable("id") long id, @RequestBody CustomerRequest request) {
+    public ApiResponse<CustomerResponse> updateCustomer(@PathVariable("id") long id, @RequestBody @Valid CustomerRequest request) {
         ApiResponse<CustomerResponse> apiResponse = new ApiResponse<>();
         apiResponse.setData(customerService.updateCustomer(id, request));
         return apiResponse;

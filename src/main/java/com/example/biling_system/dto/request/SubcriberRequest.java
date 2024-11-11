@@ -1,6 +1,7 @@
 package com.example.biling_system.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -19,33 +20,33 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class SubcriberRequest {
 
-    @NotNull(message = "NOT_NULL")
+    @NotBlank(message = "NOT_BLANK")
     @Size(max = 10, message = "CODE_NUMBER_VALID")
     String codeNumber;
 
     @Pattern(regexp = "\\d{10}", message = "PHONE_NUMBER_NOT_VALID")
-    @NotNull(message = "NOT_NULL")
+    @NotBlank(message = "NOT_BLANK")
     String phoneNumber;
 
     @Size(max = 20)
-    @NotNull(message = "NOT_NULL")
+    @NotBlank(message = "NOT_BLANK")
     String phoneNumberType;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    @NotNull(message = "NOT_NULL")
+    @NotNull(message = "NOT_BLANK")
     LocalDate dayActive;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    @NotNull(message = "NOT_NULL")
+    @NotNull(message = "NOT_BLANK")
     LocalDate dayInactive;
 
     @Size(max = 20, message = "SERI_PHONE_NUMBER_VALID")
-    @NotNull(message = "NOT_NULL")
+    @NotBlank(message = "NOT_BLANK")
     String seriPhoneNumber;
 
-    @NotNull(message = "NOT_NULL")
+    @NotNull(message = "NOT_BLANK")
     boolean status;
 
-    @NotNull(message = "NOT_NULL")
+    @NotNull(message = "NOT_BLANK")
     Long idCustomer;
 }

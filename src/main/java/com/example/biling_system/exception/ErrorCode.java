@@ -34,7 +34,7 @@ public enum ErrorCode {
     BILL_CODE_NOT_VALID(1053, "Code Number must be at least 10 character"),
 
 
-    NOT_NULL(9999, "Must be filled out"),
+    NOT_BLANK(9999, "Must be filled out"),
 
 
     ;

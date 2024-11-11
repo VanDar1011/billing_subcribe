@@ -7,6 +7,7 @@ import com.example.biling_system.dto.response.BillResponse;
 import com.example.biling_system.exception.AppException;
 import com.example.biling_system.exception.ErrorCode;
 import com.example.biling_system.service.BillService;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -21,16 +22,16 @@ import java.util.List;
 public class BillController {
     BillService billService;
     BillRepository billRepository;
-    @PostMapping
-    public ApiResponse<BillResponse> create(@RequestBody BillRequest request) {
-        if (billRepository.existsByBillCode(request.getBillCode())){
-            throw new AppException(ErrorCode.BILL_EXIST);
-        }
-        ApiResponse<BillResponse> response = new ApiResponse<>();
-        var bill = billService.createBill(request);
-        response.setData(bill);
-        return response;
-    }
+//    @PostMapping
+//    public ApiResponse<BillResponse> create(@RequestBody @Valid BillRequest request) {
+//        if (billRepository.existsByBillCode(request.getBillCode())){
+//            throw new AppException(ErrorCode.BILL_EXIST);
+//        }
+//        ApiResponse<BillResponse> response = new ApiResponse<>();
+//        var bill = billService.createBill(request);
+//        response.setData(bill);
+//        return response;
+//    }
 
     @GetMapping
     public ApiResponse<List<BillResponse>> getAllBills(@RequestParam(defaultValue = "0") int page,

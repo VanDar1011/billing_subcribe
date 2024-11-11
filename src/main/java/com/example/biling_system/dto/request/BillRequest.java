@@ -1,6 +1,7 @@
 package com.example.biling_system.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
@@ -17,27 +19,28 @@ import java.sql.Date;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class BillRequest {
 
-    @NotNull(message = "NOT_NULL")
+    @NotBlank(message = "NOT_BLANK")
     @Size(max = 10, message = "BILL_CODE_NOT_VALID")
     String billCode;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    @NotNull(message = "NOT_NULL")
-    Date establishtmentDay;
+    @NotBlank(message = "NOT_BLANK")
+    LocalDate establishtmentDay;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    @NotNull(message = "NOT_NULL")
-    Date collectionDay;
+    @NotNull(message = "NOT_BLANK")
+    LocalDate collectionDay;
 
-    @NotNull(message = "NOT_NULL")
+    @NotBlank(message = "NOT_BLANK")
     Double totalAmount;
 
-    @NotNull(message = "NOT_NULL")
+    @NotBlank(message = "NOT_BLANK")
     String status;
 
-    @NotNull(message = "NOT_NULL")
+    @NotBlank(message = "NOT_BLANK")
     Long idUsagePackage;
 
+    @NotBlank(message = "NOT_BLANK")
     int billingMonth;
 
     // hoa don cua ki nao
