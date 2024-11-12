@@ -2,6 +2,7 @@ package com.example.biling_system.mapper;
 
 
 import com.example.biling_system.dto.SubcriberDTO;
+import com.example.biling_system.dto.request.CustomerRequest;
 import com.example.biling_system.dto.request.SubcriberRequest;
 import com.example.biling_system.dto.response.CustomerResponse;
 import com.example.biling_system.dto.response.SubcriberResponse;
@@ -10,6 +11,7 @@ import com.example.biling_system.model.PackageType;
 import com.example.biling_system.model.Subcriber;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -44,6 +46,8 @@ public interface SubcriberMapper {
         customer.setId(idCustomer);
         return customer;
     }
+
+    void updateSubcriber(@MappingTarget Subcriber subcriber, SubcriberRequest request);
 
 
 

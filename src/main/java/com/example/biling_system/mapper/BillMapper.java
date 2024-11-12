@@ -1,11 +1,14 @@
 package com.example.biling_system.mapper;
 
 import com.example.biling_system.dto.request.BillRequest;
+import com.example.biling_system.dto.request.CustomerRequest;
 import com.example.biling_system.dto.response.BillResponse;
 import com.example.biling_system.model.Bill;
+import com.example.biling_system.model.Customer;
 import com.example.biling_system.model.UsagePackage;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.springframework.data.domain.Page;
 
 @Mapper(componentModel = "spring")
@@ -35,4 +38,6 @@ public interface BillMapper {
     default Long map(UsagePackage usagePackage) {
         return usagePackage != null ? usagePackage.getId() : null;
     }
+
+    void updateBill(@MappingTarget Bill bill, BillRequest request);
 }

@@ -1,6 +1,7 @@
 package com.example.biling_system.mapper;
 
 
+import com.example.biling_system.dto.request.CustomerRequest;
 import com.example.biling_system.dto.request.UsagePackageRequest;
 import com.example.biling_system.dto.response.CustomerResponse;
 import com.example.biling_system.dto.response.UsagePackageResponse;
@@ -10,6 +11,7 @@ import com.example.biling_system.model.Subcriber;
 import com.example.biling_system.model.UsagePackage;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.springframework.data.domain.Page;
 
 import java.util.Collections;
@@ -55,6 +57,8 @@ public interface UsagePackageMapper {
         return packageType;
 
     }
+
+    void updateUsage(@MappingTarget UsagePackage usagePackage, UsagePackageRequest request);
 
 
 }

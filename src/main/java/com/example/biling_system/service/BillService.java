@@ -7,7 +7,6 @@ import com.example.biling_system.dto.response.UsagePackageResponse;
 import com.example.biling_system.exception.AppException;
 import com.example.biling_system.exception.ErrorCode;
 import com.example.biling_system.mapper.BillMapper;
-import com.example.biling_system.model.UsagePackage;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -50,7 +49,7 @@ public class BillService {
 
     public BillResponse updateBill(Long id, BillRequest request) {
         var bill = billRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.BILL_NOT_FOUND));
-        bill = billMapper.toBill(request);
+        billMapper.updateBill(bill,request);
         billRepository.save(bill);
         return billMapper.toBillResponse(bill);
     }

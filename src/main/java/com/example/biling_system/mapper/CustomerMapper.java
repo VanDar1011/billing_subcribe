@@ -5,6 +5,8 @@ import com.example.biling_system.dto.response.CustomerResponse;
 import com.example.biling_system.model.Customer;
 import com.example.biling_system.model.Subcriber;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.springframework.data.domain.Page;
 
 import java.util.Collections;
@@ -14,8 +16,10 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface CustomerMapper {
+    @Mapping(target = "subcribers", ignore = true)
     Customer toCustomer(CustomerRequest request);
 
+    @Mapping(target = "subcribers", source = "subcribers")
     CustomerResponse toCustomerResponse(Customer customer);
 
     default List<String> toStringList(List<Subcriber> list) {
@@ -32,6 +36,9 @@ public interface CustomerMapper {
     default Page<CustomerResponse> toCustomerResponsePage(Page<Customer> customers) {
         return customers.map(this::toCustomerResponse);
     }
+
+
+    void updateCustomer(@MappingTarget Customer customer, CustomerRequest request);
 
 
 

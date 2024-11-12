@@ -68,7 +68,7 @@ public class UsagePackageService {
     public UsagePackageResponse updateUsagePackage(long id, UsagePackageRequest request) {
         var usagepackage = usagePackageRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.USAGE_PACKAGE_NOT_FOUND));
-        usagepackage = usagePackageMapper.toUsagePackage(request);
+        usagePackageMapper.updateUsage(usagepackage,request);
         usagePackageRepository.save(usagepackage);
         return usagePackageMapper.toUsagePackageResponse(usagepackage);
     }

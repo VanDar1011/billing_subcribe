@@ -64,7 +64,13 @@ public class SubcriberService {
     public SubcriberResponse updateSubcriber(long id, SubcriberRequest request) {
         var subcriber = subcriberRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.SUBCRIBER_NOT_FOUND));
-        subcriber = subcriberMapper.toSubcriber(request);
+
+        subcriberMapper.updateSubcriber(subcriber, request);
+        Customer customer = entityManager.find(Customer.class, request.getIdCustomer());
+        if (customer == null) {
+            throw new AppException(ErrorCode.CUSTOMER_NOT_FOUND);
+        }
+        subcriber.setIdCustomer(customer);
         subcriberRepository.save(subcriber);
         return subcriberMapper.toSubcriberResponse(subcriber);
     }

@@ -2,6 +2,7 @@ package com.example.biling_system.dto.request;
 
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
@@ -28,7 +29,7 @@ public class PackageTypeRequest {
     @NotBlank(message = "NOT_BLANK")
     String packageCapacity;
 
-    @NotBlank(message = "NOT_BLANK")
+    @NotNull(message = "NOT_BLANK")
     Double packagePrice;
 
 

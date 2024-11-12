@@ -48,8 +48,8 @@ public class CustomerService {
     }
 
     public CustomerResponse updateCustomer(long id, CustomerRequest request) {
-        var customer = customerRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.CUSTOMER_NOT_FOUND));
-        customer = customerMapper.toCustomer(request);
+        Customer customer = customerRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.CUSTOMER_NOT_FOUND));
+        customerMapper.updateCustomer(customer,request);
         customer = customerRepository.save(customer);
         return customerMapper.toCustomerResponse(customer);
     }

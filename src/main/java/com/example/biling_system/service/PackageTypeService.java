@@ -45,7 +45,7 @@ public class PackageTypeService {
     public PackageTypeResponse updatePackageTypeById(long id, PackageTypeRequest request) {
         var packageType = packageTypeRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.PACKAGE_TYPE_NOT_FOUND));
-        packageType = packageTypeMapper.toPackageType(request);
+         packageTypeMapper.updatePackageType(packageType, request);
         packageTypeRepository.save(packageType);
         return packageTypeMapper.toPackageTypeResponse(packageType);
     }
