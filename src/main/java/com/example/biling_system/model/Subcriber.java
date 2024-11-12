@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 
 @Entity
@@ -28,9 +28,9 @@ public class Subcriber {
     @Column(length = 20, name = "phone_number_type")
     String phoneNumberType;
     @Column(name = "active_day")
-    LocalDate dayActive;
+    Date dayActive;
     @Column(name = "inactive_day")
-    LocalDate dayInactive;
+    Date dayInactive;
     @Column(length = 20, name = "seri_phone_number")
     String seriPhoneNumber;
     @Column(name = "status")

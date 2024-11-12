@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 
 @Data
@@ -20,7 +20,7 @@ public class CustomerResponse {
 
     String name;
 
-    LocalDate dateOfBirth;
+    Date dateOfBirth;
 
     String gender;
 

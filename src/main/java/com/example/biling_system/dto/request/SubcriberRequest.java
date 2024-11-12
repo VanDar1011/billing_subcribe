@@ -11,7 +11,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDate;
+import java.sql.Date;
+
 
 
 @Data
@@ -34,11 +35,11 @@ public class SubcriberRequest {
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     @NotNull(message = "NOT_BLANK")
-    LocalDate dayActive;
+    Date dayActive;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     @NotNull(message = "NOT_BLANK")
-    LocalDate dayInactive;
+    Date dayInactive;
 
     @Size(max = 20, message = "SERI_PHONE_NUMBER_VALID")
     @NotBlank(message = "NOT_BLANK")

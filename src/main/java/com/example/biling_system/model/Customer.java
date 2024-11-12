@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 
 @Entity
@@ -25,7 +25,7 @@ public class Customer {
     @Column(length = 50, name = "name_customer")
     String name;
     @Column(name = " date_of_birth")
-    LocalDate dateOfBirth;
+    Date dateOfBirth;
     @Column(length = 10, name = "sex")
     String gender;
     @Column(length = 100, name ="address")

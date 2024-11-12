@@ -6,7 +6,7 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 
 @Data
@@ -26,7 +26,8 @@ public class CustomerRequest {
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     @Past(message = "DATE_NOT_VALID")
-    LocalDate dateOfBirth;
+    @NotNull(message = "NOT_BLANK")
+    Date dateOfBirth;
 
     @Pattern(regexp = "^(Male|Female|Other)$", message = "GENDER_NOT_VALID")
     @NotBlank(message = "NOT_BLANK")

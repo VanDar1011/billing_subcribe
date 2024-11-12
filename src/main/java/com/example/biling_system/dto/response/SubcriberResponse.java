@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 
 @Data
@@ -23,9 +23,9 @@ public class SubcriberResponse {
 
     String phoneNumberType;
 
-    LocalDate dayActive;
+    Date dayActive;
 
-    LocalDate dayInactive;
+    Date dayInactive;
 
     String seriPhoneNumber;
 
