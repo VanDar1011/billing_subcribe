@@ -24,14 +24,16 @@ public interface SubcriberMapper {
     Subcriber toSubcriber(SubcriberRequest subcriber);
 
     List<SubcriberDTO> toSubcriberDTOList(List<Subcriber> subcribers);
+
     List<SubcriberResponse> toSubcriberRespnoseList(List<Subcriber> subcribers);
+
     @Mapping(target = "idCustomer", source = "idCustomer")
     @Mapping(target = "usagePackages", source = "usagePackages")
     SubcriberResponse toSubcriberResponse(Subcriber subcriber);
 
-    default long map(PackageType packageType) {
-        return packageType != null ? packageType.getId() : 0L;
-    }
+//    default long map(PackageType packageType) {
+//        return packageType != null ? packageType.getId() : 0L;
+//    }
 
     default Page<SubcriberResponse> toCustomerResponsePage(Page<Subcriber> subcribers) {
         return subcribers.map(this::toSubcriberResponse);
@@ -45,6 +47,17 @@ public interface SubcriberMapper {
         Customer customer = new Customer();
         customer.setId(idCustomer);
         return customer;
+    }
+
+    default Long map(Subcriber subcriber) {
+        return subcriber != null ? subcriber.getId() : null;
+    }
+
+
+    default Subcriber maptoSubcriber(long idSubcriber) {
+        Subcriber subcriber = new Subcriber();
+        subcriber.setId(idSubcriber);
+        return subcriber ;
     }
 
     void updateSubcriber(@MappingTarget Subcriber subcriber, SubcriberRequest request);

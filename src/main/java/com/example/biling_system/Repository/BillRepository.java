@@ -10,4 +10,6 @@ public interface BillRepository extends JpaRepository<Bill, Long> {
     boolean existsByBillCode(String billCode);
 
     Bill findBillByBillCode(String billCode);
+
+    Bill findByIdUsagePackage(long idUsage);
 }

@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import java.sql.Date;
-import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
@@ -21,17 +20,20 @@ public class UsagePackageRequest {
 
     @NotNull(message = "NOT_BLANK")
     @JsonFormat(pattern = "dd/MM/yyyy")
-    LocalDate startDay;
+    Date startDay;
 
     @NotNull(message = "NOT_BLANK")
     @JsonFormat(pattern = "dd/MM/yyyy")
-    LocalDate endDay;
+    Date endDay;
 
     @NotBlank(message = "NOT_BLANK")
     String checkoutStatus;
 
     @Size(max = 20, message = "NOTE_VALID")
     String note;
+
+    @NotNull(message = "NOT_BLANK")
+    Long idSubcriber;
 
     @NotNull(message = "NOT_BLANK")
     Long idPackageType;

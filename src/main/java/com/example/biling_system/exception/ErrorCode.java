@@ -8,9 +8,10 @@ public enum ErrorCode {
     CODE_CUS_NOT_VALID(1013, "CodeCustomer must be filled out without spaces and at least 20 characters"),
     NAME_NOT_VALID(1014, "Name must be filled and at least 50 characters"),
     DATE_NOT_VALID(1015, "Date must be in the past"),
-    GENDER_NOT_VALID(1016, "please choose gender : male or female or other"),
+    GENDER_NOT_VALID(1016, "please choose gender : Male or Female or Other"),
     EMAIL_NOT_VALID(1017, "Email must be @gmail.com"),
     IDENTIFY_NOT_VALID(1018, "Identify Code must at least 12 character and not spaces"),
+    IDENTIIFY_EXISTED(1019, "Identify Code Already Exist"),
 
 
     SUBCRIBER_NOT_FOUND(1020, "Subcriber Not Found"),

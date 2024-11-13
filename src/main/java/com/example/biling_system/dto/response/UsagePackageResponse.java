@@ -1,8 +1,5 @@
 package com.example.biling_system.dto.response;
 
-
-import com.example.biling_system.model.PackageType;
-import com.example.biling_system.model.Subcriber;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,7 +22,7 @@ public class UsagePackageResponse {
 
     String note;
 
-//    Long IDsubcriber;
+    Long idSubcriber;
 
     PackageTypeResponse idPackageType;
 

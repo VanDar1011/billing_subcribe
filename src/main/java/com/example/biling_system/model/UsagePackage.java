@@ -30,7 +30,7 @@ public class UsagePackage {
     String note;
     @ManyToOne
     @JoinColumn(name = "id_subcriber", referencedColumnName = "id_phone_number")
-    Subcriber IDsubcriber;
+    Subcriber idSubcriber;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_package_type", referencedColumnName = "id_package_type")
     PackageType idPackageType;

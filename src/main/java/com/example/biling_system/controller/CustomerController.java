@@ -32,6 +32,9 @@ public class CustomerController {
         if (customerRepository.existsByCodeCus(request.getCodeCus())){
             throw new AppException(ErrorCode.CUSTOMER_EXIST);
         }
+        if (customerRepository.existsByIdentifyCode(request.getIdentifyCode())){
+            throw new AppException(ErrorCode.IDENTIIFY_EXISTED);
+        }
         ApiResponse<CustomerResponse> apiResponse = new ApiResponse<>();
         apiResponse.setData(customerService.createCustomer(request));
         return apiResponse;

@@ -1,11 +1,9 @@
 package com.example.biling_system.mapper;
 
 
-import com.example.biling_system.dto.request.CustomerRequest;
+
 import com.example.biling_system.dto.request.UsagePackageRequest;
-import com.example.biling_system.dto.response.CustomerResponse;
 import com.example.biling_system.dto.response.UsagePackageResponse;
-import com.example.biling_system.model.Customer;
 import com.example.biling_system.model.PackageType;
 import com.example.biling_system.model.Subcriber;
 import com.example.biling_system.model.UsagePackage;
@@ -22,11 +20,11 @@ import java.util.stream.Collectors;
 public interface UsagePackageMapper {
 
 
+    @Mapping(target = "idSubcriber", source = "idSubcriber")
     @Mapping(target = "idPackageType", source = "idPackageType")
     UsagePackage toUsagePackage(UsagePackageRequest request);
-//
-//    @Mapping(target = "IDsubcriber" , source = "IDsubcriber" )
-    @Mapping(target = "idPackageType" , source = "idPackageType" )
+
+    @Mapping(target = "idSubcriber" , source = "idSubcriber" )
     UsagePackageResponse toUsagePackageResponse(UsagePackage usagePackage);
 
     default List<UsagePackageResponse> toUsagePackageResponseList(List<UsagePackage> list) {

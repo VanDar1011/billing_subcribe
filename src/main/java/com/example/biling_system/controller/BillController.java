@@ -49,7 +49,7 @@ public class BillController {
     }
 
     @PutMapping("/{id}")
-    public ApiResponse<BillResponse> updateBill(@PathVariable("id") long id, @RequestBody BillRequest request) {
+    public ApiResponse<BillResponse> updateBill(@PathVariable("id") long id, @RequestBody @Valid BillRequest request) {
         ApiResponse<BillResponse> response = new ApiResponse<>();
         response.setData(billService.updateBill(id, request));
         return response;
