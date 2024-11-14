@@ -27,6 +27,8 @@ public interface UsagePackageMapper {
     @Mapping(target = "idSubcriber" , source = "idSubcriber" )
     UsagePackageResponse toUsagePackageResponse(UsagePackage usagePackage);
 
+    UsagePackage toUsagePackage(UsagePackageResponse response);
+
     default List<UsagePackageResponse> toUsagePackageResponseList(List<UsagePackage> list) {
         return list.stream().map(this::toUsagePackageResponse).collect(Collectors.toList());
     }

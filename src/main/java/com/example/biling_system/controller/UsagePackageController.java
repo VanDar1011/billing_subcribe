@@ -1,9 +1,13 @@
 package com.example.biling_system.controller;
 
 
+import com.example.biling_system.Repository.UsagePackageRepository;
 import com.example.biling_system.dto.request.UsagePackageRequest;
 import com.example.biling_system.dto.response.ApiResponse;
 import com.example.biling_system.dto.response.UsagePackageResponse;
+import com.example.biling_system.exception.AppException;
+import com.example.biling_system.exception.ErrorCode;
+import com.example.biling_system.model.UsagePackage;
 import com.example.biling_system.service.UsagePackageService;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
@@ -12,6 +16,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,6 +25,7 @@ import java.util.List;
 public class
 UsagePackageController {
     UsagePackageService usagePackageService;
+    UsagePackageRepository usagePackageRepository;
 
     @PostMapping
     public ApiResponse<UsagePackageResponse> create(@RequestBody @Valid UsagePackageRequest request) {
@@ -58,4 +64,10 @@ UsagePackageController {
         return response;
     }
 
+    @GetMapping("/updatelist")
+    public ApiResponse<List<UsagePackageResponse>> updateStatus() {
+        ApiResponse<List<UsagePackageResponse>> response = new ApiResponse<>();
+        response.setData(usagePackageService.updateStatusUsagePackage());
+        return response;
+    }
 }

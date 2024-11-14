@@ -27,10 +27,9 @@ public class UsagePackageRequest {
     Date endDay;
 
     @NotBlank(message = "NOT_BLANK")
-    String checkoutStatus;
+    String checkoutStatus = "PENDING";
 
-    @Size(max = 20, message = "NOTE_VALID")
-    String note;
+    String note = "NOT_BILL";
 
     @NotNull(message = "NOT_BLANK")
     Long idSubcriber;

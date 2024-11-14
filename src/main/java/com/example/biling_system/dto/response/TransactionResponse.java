@@ -13,8 +13,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @FieldDefaults(level= AccessLevel.PRIVATE)
 public class TransactionResponse {
+    long id;
     String transactionCode;
-    LocalDate transactionDate;
+    long idBill;
+    Date transactionDate;
     Double totalAmount;
     String paymentMethod;
 }

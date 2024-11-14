@@ -31,8 +31,7 @@ public class BillRequest {
     @NotNull(message = "NOT_BLANK")
     Double totalAmount;
 
-    @NotBlank(message = "NOT_BLANK")
-    String status = "pending";
+    String status = "PENDING";
 
     @NotNull(message = "NOT_BLANK")
     Long idUsagePackage;

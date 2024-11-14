@@ -12,4 +12,6 @@ public interface BillRepository extends JpaRepository<Bill, Long> {
     Bill findBillByBillCode(String billCode);
 
     Bill findByIdUsagePackage(long idUsage);
+
+//    Bill findById(long idBill);
 }

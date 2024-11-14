@@ -14,9 +14,8 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class TransactionRequest {
 
-    @NotBlank(message = "NOT_BLANK")
-    @Size(max =10)
-    String billId;
+    @NotNull(message = "NOT_BLANK")
+    long idBill;
     @Pattern(regexp = "^(CREDIT_CARD|DEBIT_CARD|BANK_TRANSFER)$")
     @NotBlank(message = "NOT_BLANK")
     String paymentMethod;

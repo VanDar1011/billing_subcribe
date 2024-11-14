@@ -100,21 +100,36 @@ public class UsagePackageService {
         return usagePackageMapper.toUsagePackageResponse(usagepackage);
     }
 
-    @Transactional
-    public void updateStatusUsagePackage(long idUsagepackage) {
-        UsagePackage usagepackage = usagePackageRepository.findById(idUsagepackage)
-                .orElseThrow(() -> new AppException(ErrorCode.USAGE_PACKAGE_NOT_FOUND));
-        Bill bill = billRepository.findByIdUsagePackage(idUsagepackage);
 
-        if (bill != null) {
-            String billStatus = bill.getStatus();
-            if ("completed".equals(billStatus)) {
-                usagepackage.setCheckoutStatus("WORKING");
+    @Transactional
+    public List<UsagePackageResponse> updateStatusUsagePackage() {
+        List<UsagePackageResponse> responseList = new ArrayList<>();
+        List<Bill> bill = billRepository.findAll();
+        for (Bill b : bill) {
+            long id = b.getIdUsagePackage();
+            UsagePackage usagePackage = usagePackageRepository.findById(id)
+                    .orElseThrow(() -> new AppException(ErrorCode.USAGE_PACKAGE_NOT_FOUND));
+            String billStatus = b.getStatus();
+            if (billStatus.equals("completed")) {
+                usagePackage.setCheckoutStatus("WORKING");
+                usagePackageRepository.save(usagePackage);
+            } else if ("pending".equals(billStatus)) {
+                usagePackage.setCheckoutStatus("PENDING");
+                usagePackageRepository.save(usagePackage);
             }
-            if ("pending".equals(billStatus)) {
-                usagepackage.setCheckoutStatus("PENDING");
-            }
-            usagePackageRepository.save(usagepackage);
-        } else throw new AppException(ErrorCode.BILL_NOT_FOUND);
+            responseList.add(usagePackageMapper.toUsagePackageResponse(usagePackage));
+        }
+
+        return responseList;
+    }
+
+    @Transactional
+    public void updateUsageStatus(long idUsagePackage) {
+        UsagePackage usagePackage = usagePackageRepository.findById(idUsagePackage)
+                .orElseThrow(() -> new AppException(ErrorCode.USAGE_PACKAGE_NOT_FOUND));
+        usagePackage.setCheckoutStatus("WORKING");
+        usagePackageRepository.save(usagePackage);
     }
 }
+
+

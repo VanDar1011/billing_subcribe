@@ -1,12 +1,20 @@
 package com.example.biling_system.service;
 
 import com.example.biling_system.Repository.BillRepository;
+import com.example.biling_system.Repository.TransactionRepository;
+import com.example.biling_system.Repository.UsagePackageRepository;
 import com.example.biling_system.dto.request.BillRequest;
 import com.example.biling_system.dto.response.BillResponse;
+import com.example.biling_system.dto.response.TransactionResponse;
 import com.example.biling_system.dto.response.UsagePackageResponse;
 import com.example.biling_system.exception.AppException;
 import com.example.biling_system.exception.ErrorCode;
 import com.example.biling_system.mapper.BillMapper;
+import com.example.biling_system.mapper.TransactionMapper;
+import com.example.biling_system.mapper.UsagePackageMapper;
+import com.example.biling_system.model.Bill;
+import com.example.biling_system.model.Transaction;
+import com.example.biling_system.model.UsagePackage;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -14,10 +22,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -28,6 +38,10 @@ public class BillService {
     BillRepository billRepository;
     BillMapper billMapper;
     static int id = 0;
+    TransactionRepository transactionRepository;
+    TransactionMapper transactionMapper;
+    UsagePackageRepository usagePackageRepository;
+    UsagePackageMapper usagePackageMapper;
 
     public BillResponse createBill(BillRequest request) {
         var bill = billMapper.toBill(request);
@@ -49,7 +63,7 @@ public class BillService {
 
     public BillResponse updateBill(Long id, BillRequest request) {
         var bill = billRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.BILL_NOT_FOUND));
-        billMapper.updateBill(bill,request);
+        billMapper.updateBill(bill, request);
         billRepository.save(bill);
         return billMapper.toBillResponse(bill);
     }
@@ -64,7 +78,7 @@ public class BillService {
         LocalDate endDay = currentDate.toLocalDate();
         int month = endDay.getMonthValue() - 1;
         System.out.println("ngay tinh cuoc : " + currentDate);
-        for(UsagePackageResponse usagePackage : usagePackages){
+        for (UsagePackageResponse usagePackage : usagePackages) {
             System.out.println("ngay bat dau cuoc : " + usagePackage.getStartDay());
             LocalDate startDay = usagePackage.getStartDay().toLocalDate();
             long daysBetween = ChronoUnit.DAYS.between(startDay, endDay);
@@ -78,9 +92,17 @@ public class BillService {
             billRequest.setIdUsagePackage(usagePackage.getId());
             System.out.println(billRequest);
             createBill(billRequest);
-
+            usagePackage.setNote("BILL");
+            UsagePackage us = usagePackageMapper.toUsagePackage(usagePackage);
+            usagePackageRepository.save(us);
         }
-
     }
 
+    @Transactional
+    public void updateBillStatus(long idBill) {
+        Bill bill = billRepository.findById(idBill).orElseThrow(() -> new AppException(ErrorCode.BILL_NOT_FOUND));
+        bill.setStatus("COMPLETED");
+        billRepository.save(bill);
+    }
 }
+
