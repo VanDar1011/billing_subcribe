@@ -1,12 +1,16 @@
 package com.example.biling_system.model;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Value;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import java.sql.Date;
 @Entity
 @Table(name = "temple_schedule")
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class TempSchedule {
     @Id
@@ -15,5 +19,4 @@ public class TempSchedule {
     String transactionCode;
     @Column(columnDefinition = "SMALLINT default 0")
     byte status;
-    Date scheduleDate;
 }
