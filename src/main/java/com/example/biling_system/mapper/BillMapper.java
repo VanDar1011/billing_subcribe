@@ -1,10 +1,8 @@
 package com.example.biling_system.mapper;
 
 import com.example.biling_system.dto.request.BillRequest;
-import com.example.biling_system.dto.request.CustomerRequest;
 import com.example.biling_system.dto.response.BillResponse;
 import com.example.biling_system.model.Bill;
-import com.example.biling_system.model.Customer;
 import com.example.biling_system.model.UsagePackage;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -21,7 +19,6 @@ public interface BillMapper {
 
     @Mapping(target = "idUsagePackage", source = "idUsagePackage")
     BillResponse toBillResponse(Bill bill);
-
 
 
     default Page<BillResponse> toBillResponsePage(Page<Bill> bills) {

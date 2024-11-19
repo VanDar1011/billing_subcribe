@@ -28,6 +28,7 @@ public class TransactionService {
     TransactionMapper transactionMapper;
     BillService billService;
     UsagePackageService usagePackageService;
+    private final TempScheduleService tempScheduleService;
 
     public String genTransactionCode() {
         long currentMilliseconds = new Date().getTime();
@@ -46,13 +47,13 @@ public class TransactionService {
         Date date = new Date();
         transaction.setTransactionDate(new java.sql.Date(date.getTime()));
         transaction.setTransactionCode(genTransactionCode());
+        transaction.setPaymentMethod(transactionRequest.getPaymentMethod());
+        Transaction repositoryTransaction = transactionRepository.save(transaction);
         // create record in temp_schedule
         TempSchedule tempSchedule = new TempSchedule();
         tempSchedule.setTransactionCode(transaction.getTransactionCode());
+        tempScheduleService.createTempSchedule(tempSchedule);
         // end create record in temp_schedule
-        transaction.setPaymentMethod(transactionRequest.getPaymentMethod());
-        Transaction repositoryTransaction = transactionRepository.save(transaction);
-
         billService.updateBillStatus(bill.getId());
         usagePackageService.updateUsageStatus(bill.getIdUsagePackage());
 

@@ -20,7 +20,7 @@ public class BillTransactions {
     long id;
     @Column(length = 13, unique = true)
     String transactionCode;
-    @Column(length = 20, name = "code_customer", unique = true)
+    @Column(length = 20, name = "code_customer")
     String codeCus;
     @Column(length = 50)
     String nameCustomer;
