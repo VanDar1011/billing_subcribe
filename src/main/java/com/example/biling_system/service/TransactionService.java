@@ -8,6 +8,7 @@ import com.example.biling_system.exception.AppException;
 import com.example.biling_system.exception.ErrorCode;
 import com.example.biling_system.mapper.TransactionMapper;
 import com.example.biling_system.model.Bill;
+import com.example.biling_system.model.TempSchedule;
 import com.example.biling_system.model.Transaction;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -45,6 +46,10 @@ public class TransactionService {
         Date date = new Date();
         transaction.setTransactionDate(new java.sql.Date(date.getTime()));
         transaction.setTransactionCode(genTransactionCode());
+        // create record in temp_schedule
+        TempSchedule tempSchedule = new TempSchedule();
+        tempSchedule.setTransactionCode(transaction.getTransactionCode());
+        // end create record in temp_schedule
         transaction.setPaymentMethod(transactionRequest.getPaymentMethod());
         Transaction repositoryTransaction = transactionRepository.save(transaction);
 

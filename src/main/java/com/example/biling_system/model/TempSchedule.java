@@ -16,6 +16,7 @@ public class TempSchedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
+    @Column(length = 13, unique = true, nullable = false)
     String transactionCode;
     @Column(columnDefinition = "SMALLINT default 0")
     byte status;
