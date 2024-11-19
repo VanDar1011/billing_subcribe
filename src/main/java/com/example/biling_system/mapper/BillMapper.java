@@ -23,6 +23,7 @@ public interface BillMapper {
     BillResponse toBillResponse(Bill bill);
 
 
+
     default Page<BillResponse> toBillResponsePage(Page<Bill> bills) {
         return bills.map(this::toBillResponse);
     }

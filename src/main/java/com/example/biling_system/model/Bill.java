@@ -21,7 +21,7 @@ public class Bill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_bill")
     long id;
-    @Column(length = 10, name = "bill_code", unique = true)
+    @Column(length = 10, name = "bill_code")
     String billCode;
     @Column(name = "establishtment_day")
     Date establishtmentDay;

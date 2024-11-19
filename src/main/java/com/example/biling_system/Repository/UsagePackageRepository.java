@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface UsagePackageRepository extends JpaRepository<UsagePackage, Long> {
     @Query("""
-           SELECT u FROM UsagePackage u WHERE u.startDay < :crobTime AND u.endDay > :crobTime
+           SELECT u FROM UsagePackage u WHERE u.startDay < :crobTime AND u.endDay > :crobTime AND u.note = 'NOT_BILL'
            """)
     List<UsagePackage> findTimeBetweenStartAndEnd(@Param("crobTime") Date crobTime);
 }
