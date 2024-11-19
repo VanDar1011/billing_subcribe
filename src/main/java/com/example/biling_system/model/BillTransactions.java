@@ -27,7 +27,7 @@ public class BillTransactions {
     @Column(length = 12)
     String identifyCode;
     @Column(length = 10)
-    String gender_customer;
+    String genderCustomer;
     @Column(length = 100)
     String address;
     @Column(length = 10)
@@ -36,11 +36,11 @@ public class BillTransactions {
     String phoneNumber;
     @Column(length = 20)
     String phoneNumberType;
-    @Column(length = 10, name = "package_type_code")
+    @Column(length = 10, name = "package_code")
     String packageCode;
-    @Column(length = 50, name = "package_type_name")
+    @Column(length = 50, name = "package_name")
     String packageName;
-    @Column(length = 50, name = "package_type_capacity")
+    @Column(length = 50, name = "package_capacity")
     String packageCapacity;
     @Column
     Date startDay;
