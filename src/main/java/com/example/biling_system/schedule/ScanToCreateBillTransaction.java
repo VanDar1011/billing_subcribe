@@ -1,7 +1,7 @@
 package com.example.biling_system.schedule;
 
 import com.example.biling_system.dto.response.ApiResponse;
-import com.example.biling_system.service.BillTransactionService;
+import com.example.biling_system.service.BillTransactionsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/billTransaction")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ScanToCreateBillTransaction {
-    private final BillTransactionService billTransactionService;
+    private final BillTransactionsService billTransactionsService;
 
     //    @Scheduled(cron = "1 * * * * ?")
     public void scanEveryFiveMinutes() {
-        billTransactionService.createRecord();
+        billTransactionsService.createRecord();
     }
 
     @GetMapping
@@ -27,7 +27,7 @@ public class ScanToCreateBillTransaction {
         ApiResponse<String> apiResponse = new ApiResponse<>();
         try {
 
-            billTransactionService.createRecord();
+            billTransactionsService.createRecord();
             apiResponse.setMessage("Success create bill transaction");
             log.info(apiResponse.getMessage());
             return apiResponse;
