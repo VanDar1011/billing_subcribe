@@ -47,7 +47,7 @@ public class BillTransactionsService {
     public void createRecord() {
         List<TempSchedule> scheduleList = tempScheduleService.getAllTempScheduleWhenStatusNotDone();
         if(scheduleList.isEmpty()) {
-            throw new AppException(ErrorCode.NOT_FOUND_TRANSACTION);
+           return;
         }
         for (TempSchedule tempSchedule : scheduleList) {
             try {
