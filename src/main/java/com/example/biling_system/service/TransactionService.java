@@ -14,6 +14,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,7 +41,7 @@ public class TransactionService {
     public TransactionResponse createTransaction(TransactionRequest transactionRequest) {
         Bill bill =
                 billRepository.findById(transactionRequest.getIdBill())
-                        .orElseThrow(() -> new AppException(ErrorCode.BILL_NOT_FOUND));
+                        .orElseThrow(() -> new AppException(ErrorCode.BILL_NOT_FOUND, HttpStatus.NOT_FOUND));
         Transaction transaction = new Transaction();
         transaction.setIdBill(bill);
         transaction.setTotalAmount(bill.getTotalAmount());

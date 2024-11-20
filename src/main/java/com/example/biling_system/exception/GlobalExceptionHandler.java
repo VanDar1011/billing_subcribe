@@ -3,6 +3,7 @@ package com.example.biling_system.exception;
 
 import com.example.biling_system.dto.response.ApiResponse;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -17,14 +18,29 @@ public class GlobalExceptionHandler {
         ApiResponse apiResponse = new ApiResponse();
         apiResponse.setCode(e.getErrorCode().getCode());
         apiResponse.setMessage(e.getErrorCode().getMessage());
-        return ResponseEntity.badRequest().body(apiResponse);
+        return ResponseEntity
+                .status(e.getErrorCode().getHttpStatus())
+                .body(apiResponse);
     }
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
-    ResponseEntity<ApiResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        String enumkey = e.getFieldError().getDefaultMessage();
+    public ResponseEntity<ApiResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        FieldError fieldError = e.getBindingResult().getFieldError();
+        if (fieldError == null) {
+            ApiResponse apiResponse = new ApiResponse();
+            apiResponse.setCode(ErrorCode.NOT_BLANK.getCode());
+            apiResponse.setMessage("Validation error occurred.");
+            return ResponseEntity.badRequest().body(apiResponse);
+        }
+        String enumkey = fieldError.getDefaultMessage();
+        ErrorCode errorCode;
+        try {
+            errorCode = ErrorCode.valueOf(enumkey);
+        } catch (IllegalArgumentException ex) {
+            errorCode = ErrorCode.NOT_BLANK;
+        }
+
         ApiResponse apiResponse = new ApiResponse();
-        ErrorCode errorCode = ErrorCode.valueOf(enumkey);
         apiResponse.setCode(errorCode.getCode());
         apiResponse.setMessage(errorCode.getMessage());
         return ResponseEntity.badRequest().body(apiResponse);

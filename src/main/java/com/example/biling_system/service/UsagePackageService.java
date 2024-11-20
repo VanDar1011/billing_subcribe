@@ -20,6 +20,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,12 +43,12 @@ public class UsagePackageService {
         var usagePackage = usagePackageMapper.toUsagePackage(request);
         Subcriber subcriber = entityManager.find(Subcriber.class, request.getIdSubcriber());
         if (subcriber == null) {
-            throw new AppException(ErrorCode.SUBCRIBER_NOT_FOUND);
+            throw new AppException(ErrorCode.SUBSCRIBER_NOT_FOUND,HttpStatus.NOT_FOUND);
         }
         usagePackage.setIdSubcriber(subcriber);
         PackageType packageType = entityManager.find(PackageType.class, request.getIdPackageType());
         if (packageType == null) {
-            throw new AppException(ErrorCode.PACKAGE_TYPE_NOT_FOUND);
+            throw new AppException(ErrorCode.PACKAGE_TYPE_NOT_FOUND, HttpStatus.NOT_FOUND);
         }
         usagePackage.setIdPackageType(packageType);
         usagePackageRepository.save(usagePackage);
@@ -70,23 +71,23 @@ public class UsagePackageService {
 
     public UsagePackageResponse findUsagePackageById(long id) {
         var usagepackage = usagePackageRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.USAGE_PACKAGE_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.USAGE_PACKAGE_NOT_FOUND,HttpStatus.NOT_FOUND));
         return usagePackageMapper.toUsagePackageResponse(usagepackage);
     }
 
     @Transactional
     public UsagePackageResponse updateUsagePackage(long id, UsagePackageRequest request) {
         var usagepackage = usagePackageRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.USAGE_PACKAGE_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.USAGE_PACKAGE_NOT_FOUND,HttpStatus.NOT_FOUND));
         usagePackageMapper.updateUsage(usagepackage, request);
         Subcriber subcriber = entityManager.find(Subcriber.class, request.getIdSubcriber());
         if (subcriber == null) {
-            throw new AppException(ErrorCode.SUBCRIBER_NOT_FOUND);
+            throw new AppException(ErrorCode.SUBSCRIBER_NOT_FOUND,HttpStatus.NOT_FOUND);
         }
         usagepackage.setIdSubcriber(subcriber);
         PackageType packageType = entityManager.find(PackageType.class, request.getIdPackageType());
         if (packageType == null) {
-            throw new AppException(ErrorCode.PACKAGE_TYPE_NOT_FOUND);
+            throw new AppException(ErrorCode.PACKAGE_TYPE_NOT_FOUND,HttpStatus.NOT_FOUND);
         }
         usagepackage.setIdPackageType(packageType);
         usagePackageRepository.save(usagepackage);
@@ -95,7 +96,7 @@ public class UsagePackageService {
 
     public UsagePackageResponse deleteUsagePackage(long id) {
         var usagepackage = usagePackageRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.USAGE_PACKAGE_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.USAGE_PACKAGE_NOT_FOUND,HttpStatus.NOT_FOUND));
         usagePackageRepository.delete(usagepackage);
         return usagePackageMapper.toUsagePackageResponse(usagepackage);
     }
@@ -108,12 +109,12 @@ public class UsagePackageService {
         for (Bill b : bill) {
             long id = b.getIdUsagePackage();
             UsagePackage usagePackage = usagePackageRepository.findById(id)
-                    .orElseThrow(() -> new AppException(ErrorCode.USAGE_PACKAGE_NOT_FOUND));
+                    .orElseThrow(() -> new AppException(ErrorCode.USAGE_PACKAGE_NOT_FOUND,HttpStatus.NOT_FOUND));
             String billStatus = b.getStatus();
-            if (billStatus.equals("completed")) {
+            if (billStatus.equals("COMPLETED")) {
                 usagePackage.setCheckoutStatus("WORKING");
                 usagePackageRepository.save(usagePackage);
-            } else if ("pending".equals(billStatus)) {
+            } else if ("PENDING".equals(billStatus)) {
                 usagePackage.setCheckoutStatus("PENDING");
                 usagePackageRepository.save(usagePackage);
             }
@@ -126,7 +127,7 @@ public class UsagePackageService {
     @Transactional
     public void updateUsageStatus(long idUsagePackage) {
         UsagePackage usagePackage = usagePackageRepository.findById(idUsagePackage)
-                .orElseThrow(() -> new AppException(ErrorCode.USAGE_PACKAGE_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.USAGE_PACKAGE_NOT_FOUND,HttpStatus.NOT_FOUND));
         usagePackage.setCheckoutStatus("WORKING");
         usagePackageRepository.save(usagePackage);
     }

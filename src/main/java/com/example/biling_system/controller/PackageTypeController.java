@@ -12,6 +12,7 @@ import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public class PackageTypeController {
     @PostMapping
     public ApiResponse<PackageTypeResponse> create(@RequestBody @Valid PackageTypeRequest request) {
         if (packageTypeRepository.existsByPackageCode(request.getPackageCode())) {
-            throw new AppException(ErrorCode.PACKAGE_EXIST);
+            throw new AppException(ErrorCode.PACKAGE_EXIST, HttpStatus.BAD_REQUEST);
         } else {
             request.setPackageCode(request.getPackageCode().toUpperCase());
         }

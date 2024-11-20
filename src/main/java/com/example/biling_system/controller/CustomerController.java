@@ -13,6 +13,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,10 +31,10 @@ public class CustomerController {
     @PostMapping
     public ApiResponse<CustomerResponse> addCustomer(@RequestBody @Valid CustomerRequest request) {
         if (customerRepository.existsByCodeCus(request.getCodeCus())){
-            throw new AppException(ErrorCode.CUSTOMER_EXIST);
+            throw new AppException(ErrorCode.CUSTOMER_EXIST, HttpStatus.BAD_REQUEST);
         }
         if (customerRepository.existsByIdentifyCode(request.getIdentifyCode())){
-            throw new AppException(ErrorCode.IDENTIIFY_EXISTED);
+            throw new AppException(ErrorCode.IDENTIFY_EXISTED, HttpStatus.BAD_REQUEST);
         }
         ApiResponse<CustomerResponse> apiResponse = new ApiResponse<>();
         apiResponse.setData(customerService.createCustomer(request));

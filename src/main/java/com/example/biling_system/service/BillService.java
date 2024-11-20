@@ -21,6 +21,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -57,19 +58,19 @@ public class BillService {
     }
 
     public BillResponse findBillById(Long id) {
-        var bill = billRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.BILL_NOT_FOUND));
+        var bill = billRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.BILL_NOT_FOUND, HttpStatus.NOT_FOUND));
         return billMapper.toBillResponse(bill);
     }
 
     public BillResponse updateBill(Long id, BillRequest request) {
-        var bill = billRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.BILL_NOT_FOUND));
+        var bill = billRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.BILL_NOT_FOUND,HttpStatus.NOT_FOUND));
         billMapper.updateBill(bill, request);
         billRepository.save(bill);
         return billMapper.toBillResponse(bill);
     }
 
     public BillResponse deleteBill(Long id) {
-        var bill = billRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.BILL_NOT_FOUND));
+        var bill = billRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.BILL_NOT_FOUND,HttpStatus.NOT_FOUND));
         billRepository.delete(bill);
         return billMapper.toBillResponse(bill);
     }
@@ -100,7 +101,7 @@ public class BillService {
 
     @Transactional
     public void updateBillStatus(long idBill) {
-        Bill bill = billRepository.findById(idBill).orElseThrow(() -> new AppException(ErrorCode.BILL_NOT_FOUND));
+        Bill bill = billRepository.findById(idBill).orElseThrow(() -> new AppException(ErrorCode.BILL_NOT_FOUND,HttpStatus.NOT_FOUND));
         bill.setStatus("COMPLETED");
         billRepository.save(bill);
     }

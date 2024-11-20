@@ -18,6 +18,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,7 +43,7 @@ public class SubcriberService {
         var subcriber = subcriberMapper.toSubcriber(request);
         Customer customer = entityManager.find(Customer.class, request.getIdCustomer());
         if (customer == null) {
-            throw new AppException(ErrorCode.CUSTOMER_NOT_FOUND);
+            throw new AppException(ErrorCode.CUSTOMER_NOT_FOUND, HttpStatus.NOT_FOUND);
         }
         subcriber.setIdCustomer(customer);
         subcriber = subcriberRepository.save(subcriber);
@@ -58,19 +59,19 @@ public class SubcriberService {
 
     public SubcriberResponse findSubcriberById(long id) {
         var subcriber = subcriberRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.SUBCRIBER_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.SUBSCRIBER_NOT_FOUND, HttpStatus.NOT_FOUND));
         return subcriberMapper.toSubcriberResponse(subcriber);
     }
 
     @Transactional
     public SubcriberResponse updateSubcriber(long id, SubcriberRequest request) {
         var subcriber = subcriberRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.SUBCRIBER_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.SUBSCRIBER_NOT_FOUND, HttpStatus.NOT_FOUND));
 
         subcriberMapper.updateSubcriber(subcriber, request);
         Customer customer = entityManager.find(Customer.class, request.getIdCustomer());
         if (customer == null) {
-            throw new AppException(ErrorCode.CUSTOMER_NOT_FOUND);
+            throw new AppException(ErrorCode.CUSTOMER_NOT_FOUND, HttpStatus.NOT_FOUND);
         }
         subcriber.setIdCustomer(customer);
         subcriberRepository.save(subcriber);
@@ -79,7 +80,7 @@ public class SubcriberService {
 
     public SubcriberResponse deleteSubcriber(long id) {
         var subcriber = subcriberRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.SUBCRIBER_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.SUBSCRIBER_NOT_FOUND, HttpStatus.NOT_FOUND));
         subcriberRepository.delete(subcriber);
         return subcriberMapper.toSubcriberResponse(subcriber);
     }
@@ -87,7 +88,7 @@ public class SubcriberService {
     public List<SubcriberResponse> searchSubcriberByCCCD(String cccd) {
         Customer customer = customerRepository.findByIdentifyCode(cccd);
         if (customer == null) {
-            throw new AppException(ErrorCode.CUSTOMER_NOT_FOUND);
+            throw new AppException(ErrorCode.CUSTOMER_NOT_FOUND, HttpStatus.NOT_FOUND);
         }
         List<SubcriberResponse> subcriberResponses =
                 subcriberMapper.toSubcriberRespnoseList(customer.getSubcribers());
@@ -98,7 +99,7 @@ public class SubcriberService {
     public List<SubcriberResponse> searchSubcriberByPhoneNumber(String phoneNumber) {
         Subcriber subcriber = subcriberRepository.findByPhoneNumber(phoneNumber);
         if (subcriber == null) {
-            throw new AppException(ErrorCode.SUBCRIBER_NOT_FOUND);
+            throw new AppException(ErrorCode.SUBSCRIBER_NOT_FOUND, HttpStatus.NOT_FOUND);
         }
         List<SubcriberResponse> subcriberResponses = new ArrayList<>();
         SubcriberResponse subcriberResponse = subcriberMapper.toSubcriberResponse(subcriber);

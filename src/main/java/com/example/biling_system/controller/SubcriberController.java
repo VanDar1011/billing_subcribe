@@ -13,6 +13,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +32,7 @@ public class SubcriberController {
         boolean exists = subcriberRepository.existsByCodeNumber(request.getCodeNumber())
                 || subcriberRepository.existsByPhoneNumber(request.getPhoneNumber());
         if (exists){
-            throw new AppException(ErrorCode.PHONE_EXIST);
+            throw new AppException(ErrorCode.PHONE_EXIST, HttpStatus.BAD_REQUEST);
         }
         ApiResponse<SubcriberResponse> apiResponse = new ApiResponse<>();
         var subcriber = subcriberService.create(request);

@@ -14,6 +14,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -38,13 +39,13 @@ public class PackageTypeService {
 
     public PackageTypeResponse findPackageTypeById(long id) {
         var packageType = packageTypeRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.PACKAGE_TYPE_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.PACKAGE_TYPE_NOT_FOUND, HttpStatus.NOT_FOUND));
         return packageTypeMapper.toPackageTypeResponse(packageType);
     }
 
     public PackageTypeResponse updatePackageTypeById(long id, PackageTypeRequest request) {
         var packageType = packageTypeRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.PACKAGE_TYPE_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.PACKAGE_TYPE_NOT_FOUND,HttpStatus.NOT_FOUND));
          packageTypeMapper.updatePackageType(packageType, request);
         packageTypeRepository.save(packageType);
         return packageTypeMapper.toPackageTypeResponse(packageType);
@@ -52,7 +53,7 @@ public class PackageTypeService {
 
     public PackageTypeResponse deletePackageTypeById(long id) {
         var packageType = packageTypeRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.PACKAGE_TYPE_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.PACKAGE_TYPE_NOT_FOUND,HttpStatus.NOT_FOUND));
         packageTypeRepository.delete(packageType);
         return packageTypeMapper.toPackageTypeResponse(packageType);
     }

@@ -14,6 +14,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -37,7 +38,7 @@ public class CustomerService {
 
     public CustomerResponse findCustomerById(long id) {
         var customer = customerRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.CUSTOMER_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.CUSTOMER_NOT_FOUND, HttpStatus.NOT_FOUND));
         return customerMapper.toCustomerResponse(customer);
     }
 
@@ -48,21 +49,21 @@ public class CustomerService {
     }
 
     public CustomerResponse updateCustomer(long id, CustomerRequest request) {
-        Customer customer = customerRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.CUSTOMER_NOT_FOUND));
+        Customer customer = customerRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.CUSTOMER_NOT_FOUND,HttpStatus.NOT_FOUND));
         customerMapper.updateCustomer(customer,request);
         customer = customerRepository.save(customer);
         return customerMapper.toCustomerResponse(customer);
     }
 
     public CustomerResponse deleteCustomer(long id) {
-        var customer = customerRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.CUSTOMER_NOT_FOUND));
+        var customer = customerRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.CUSTOMER_NOT_FOUND,HttpStatus.NOT_FOUND));
         customerRepository.delete(customer);
         return customerMapper.toCustomerResponse(customer);
     }
     public CustomerResponse searchCustomerByCCCD(String cccd ) {
         Customer customer = customerRepository.findByIdentifyCode(cccd);
         if(customer == null) {
-            throw new AppException(ErrorCode.CUSTOMER_NOT_FOUND);
+            throw new AppException(ErrorCode.CUSTOMER_NOT_FOUND,HttpStatus.NOT_FOUND);
         }
         return customerMapper.toCustomerResponse(customer);
     }
