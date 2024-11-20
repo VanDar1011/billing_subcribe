@@ -38,9 +38,6 @@ import java.util.List;
 public class BillService {
     BillRepository billRepository;
     BillMapper billMapper;
-    static int id = 0;
-    TransactionRepository transactionRepository;
-    TransactionMapper transactionMapper;
     UsagePackageRepository usagePackageRepository;
     UsagePackageMapper usagePackageMapper;
 
@@ -74,24 +71,27 @@ public class BillService {
         billRepository.delete(bill);
         return billMapper.toBillResponse(bill);
     }
-
+    @Transactional
     public void createBillCrontab(List<UsagePackageResponse> usagePackages, Date currentDate) {
+        if(usagePackages.isEmpty()) {
+            return;
+        }
         LocalDate endDay = currentDate.toLocalDate();
         int month = endDay.getMonthValue() - 1;
-        System.out.println("ngay tinh cuoc : " + currentDate);
+//        System.out.println("ngay tinh cuoc : " + currentDate);
         for (UsagePackageResponse usagePackage : usagePackages) {
-            System.out.println("ngay bat dau cuoc : " + usagePackage.getStartDay());
+//            System.out.println("ngay bat dau cuoc : " + usagePackage.getStartDay());
             LocalDate startDay = usagePackage.getStartDay().toLocalDate();
             long daysBetween = ChronoUnit.DAYS.between(startDay, endDay);
-            System.out.println("daysBetween: " + daysBetween);
+//            System.out.println("daysBetween: " + daysBetween);
             BillRequest billRequest = new BillRequest();
             billRequest.setBillingMonth((int) month);
-            billRequest.setBillCode("BILL" + id++);
+            billRequest.setBillCode("BILL" + genTransactionCode());
             billRequest.setTotalAmount(usagePackage.getIdPackageType().getPackagePrice() * daysBetween);
             billRequest.setCollectionDay(currentDate);
             billRequest.setEstablishtmentDay(usagePackage.getStartDay());
             billRequest.setIdUsagePackage(usagePackage.getId());
-            System.out.println(billRequest);
+//            System.out.println(billRequest);
             createBill(billRequest);
             usagePackage.setNote("BILL");
             UsagePackage us = usagePackageMapper.toUsagePackage(usagePackage);
@@ -104,6 +104,11 @@ public class BillService {
         Bill bill = billRepository.findById(idBill).orElseThrow(() -> new AppException(ErrorCode.BILL_NOT_FOUND,HttpStatus.NOT_FOUND));
         bill.setStatus("COMPLETED");
         billRepository.save(bill);
+    }
+    public String genTransactionCode() {
+        long currentMilliseconds = new java.util.Date().getTime();
+        String strCode = currentMilliseconds + "";
+        return strCode;
     }
 }
 

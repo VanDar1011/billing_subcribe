@@ -57,7 +57,6 @@ public class TransactionService {
         // end create record in temp_schedule
         billService.updateBillStatus(bill.getId());
         usagePackageService.updateUsageStatus(bill.getIdUsagePackage());
-
         return transactionMapper.toResponse(repositoryTransaction);
     }
 }

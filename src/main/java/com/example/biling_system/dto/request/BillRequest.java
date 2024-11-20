@@ -17,7 +17,7 @@ import java.sql.Date;
 public class BillRequest {
 
     @NotBlank(message = "NOT_BLANK")
-    @Size(max = 10, message = "BILL_CODE_NOT_VALID")
+    @Size(max = 17, message = "BILL_CODE_NOT_VALID")
     String billCode;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
