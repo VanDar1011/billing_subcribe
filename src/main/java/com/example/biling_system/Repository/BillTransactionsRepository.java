@@ -12,7 +12,7 @@ import java.util.List;
 public interface BillTransactionsRepository extends JpaRepository<BillTransactions, Long> {
 
     @Query("SELECT bt FROM BillTransactions bt " +
-            "WHERE (:packageName IS NULL OR bt.packageCode LIKE CONCAT('%', :packageName, '%')) " +
+            "WHERE (:packageName IS NULL OR bt.packageName LIKE CONCAT('%', :packageName, '%')) " +
             "AND (:packageCode IS NULL OR bt.packageCode LIKE CONCAT('%', :packageCode, '%')) " +
             "AND (:transactionDate IS NULL OR bt.transactionDate = :transactionDate)")
     List<BillTransactions> findBillTransactionsByCondition(@Param("packageName") String packageName,
