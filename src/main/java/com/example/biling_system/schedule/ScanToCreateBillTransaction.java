@@ -1,6 +1,7 @@
 package com.example.biling_system.schedule;
 
 import com.example.biling_system.dto.response.ApiResponse;
+import com.example.biling_system.exception.AppException;
 import com.example.biling_system.service.BillTransactionsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -31,7 +32,7 @@ public class ScanToCreateBillTransaction {
             apiResponse.setMessage("Success create bill transaction");
             log.info(apiResponse.getMessage());
             return apiResponse;
-        } catch (Exception e) {
+        } catch (AppException e) {
             log.error(e);
             apiResponse.setMessage(e.getMessage());
             return apiResponse;

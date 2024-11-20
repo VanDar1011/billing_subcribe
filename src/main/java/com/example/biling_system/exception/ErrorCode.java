@@ -36,7 +36,8 @@ public enum ErrorCode {
 
 
     NOT_BLANK(9999, "Must be filled out"),
-
+    TRANSACTION_NOT_CORRECT (3000,"Transaction Not Correct"),
+    NOT_FOUND_TRANSACTION(3001,"Transaction Not Found"),
 
     ;
     ErrorCode(long code, String message) {
