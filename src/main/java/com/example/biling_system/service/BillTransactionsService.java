@@ -10,11 +10,14 @@ import com.example.biling_system.dto.response.SubcriberResponse;
 import com.example.biling_system.dto.response.UsagePackageResponse;
 import com.example.biling_system.exception.AppException;
 import com.example.biling_system.exception.ErrorCode;
+import com.example.biling_system.exception.TransactionNotCorrect;
 import com.example.biling_system.mapper.BillTransactionsMapper;
 import com.example.biling_system.model.*;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,7 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class BillTransactionsService {
+    private static final Logger log = LogManager.getLogger(BillTransactionsService.class);
     BillTransactionsRepository billTransactionsRepository;
     BillTransactionsMapper billTransactionsMapper;
     private final TempScheduleService tempScheduleService;
@@ -41,44 +45,67 @@ public class BillTransactionsService {
 
     @Transactional
     public void createRecord() {
-        // start
         List<TempSchedule> scheduleList = tempScheduleService.getAllTempScheduleWhenStatusNotDone();
+        if(scheduleList.isEmpty()) {
+           return;
+        }
         for (TempSchedule tempSchedule : scheduleList) {
-            Transaction transaction =
-                    transactionRepository.findByTransactionCode(tempSchedule.getTransactionCode());
-            Bill bill = transaction.getIdBill();
-            UsagePackageResponse usagePackageResponse =
-                    usagePackageService.findUsagePackageById(bill.getIdUsagePackage());
-            PackageTypeResponse packageTypeResponse = usagePackageResponse.getIdPackageType();
+            try {
+                Transaction transaction =
+                        transactionRepository.findByTransactionCode(tempSchedule.getTransactionCode());
+                if (transaction == null) {
+                    throw new TransactionNotCorrect(tempSchedule.getTransactionCode());
+                }
+                Bill bill = transaction.getIdBill();
+                if(bill == null) {
+                    throw new TransactionNotCorrect(tempSchedule.getTransactionCode());
+                }
+                UsagePackageResponse usagePackageResponse =
+                        usagePackageService.findUsagePackageById(bill.getIdUsagePackage());
+                if (usagePackageResponse == null) {
+                    throw new TransactionNotCorrect(tempSchedule.getTransactionCode());
+                }
+                PackageTypeResponse packageTypeResponse = usagePackageResponse.getIdPackageType();
+                if (packageTypeResponse == null) {
+                    throw new TransactionNotCorrect(tempSchedule.getTransactionCode());
+                }
 
-            SubcriberResponse subcriberResponse =
-                    subcriberService.findSubcriberById(usagePackageResponse.getIdSubcriber());
+                SubcriberResponse subcriberResponse =
+                        subcriberService.findSubcriberById(usagePackageResponse.getIdSubcriber());
+                if (subcriberResponse == null) {
+                    throw new TransactionNotCorrect(tempSchedule.getTransactionCode());
+                }
+                Customer customer = customerRepository.findById(subcriberResponse.getIdCustomer())
+                        .orElseThrow(() -> new TransactionNotCorrect(tempSchedule.getTransactionCode()));
 
-            Customer customer = customerRepository.findById(subcriberResponse.getIdCustomer())
-                    .orElseThrow(() -> new AppException(ErrorCode.CUSTOMER_NOT_FOUND));
-
-            BillTransactions billTransactions = new BillTransactions();
-            billTransactions.setTransactionCode(tempSchedule.getTransactionCode());
-            billTransactions.setCodeCus(customer.getCodeCus());
-            billTransactions.setNameCustomer(customer.getName());
-            billTransactions.setIdentifyCode(customer.getIdentifyCode());
-            billTransactions.setGenderCustomer(customer.getGender());
-            billTransactions.setAddress(customer.getAddress());
-            billTransactions.setCodeNumber(subcriberResponse.getCodeNumber());
-            billTransactions.setPhoneNumber(subcriberResponse.getPhoneNumber());
-            billTransactions.setPhoneNumberType(subcriberResponse.getPhoneNumberType());
-            billTransactions.setPackageCode(packageTypeResponse.getPackageCode());
-            billTransactions.setPackageName(packageTypeResponse.getPackageName());
-            billTransactions.setPackageCapacity(packageTypeResponse.getPackageCapacity());
-            billTransactions.setStartDay(usagePackageResponse.getStartDay());
-            billTransactions.setEndDay(usagePackageResponse.getEndDay());
-            billTransactions.setTotalAmount(bill.getTotalAmount());
-            billTransactions.setTransactionDate(transaction.getTransactionDate());
-            billTransactionsRepository.save(billTransactions);
-            tempSchedule.setStatus((byte)1);
-            tempScheduleRepository.save(tempSchedule);
+                BillTransactions billTransactions = new BillTransactions();
+                billTransactions.setTransactionCode(tempSchedule.getTransactionCode());
+                billTransactions.setCodeCus(customer.getCodeCus());
+                billTransactions.setNameCustomer(customer.getName());
+                billTransactions.setIdentifyCode(customer.getIdentifyCode());
+                billTransactions.setGenderCustomer(customer.getGender());
+                billTransactions.setAddress(customer.getAddress());
+                billTransactions.setCodeNumber(subcriberResponse.getCodeNumber());
+                billTransactions.setPhoneNumber(subcriberResponse.getPhoneNumber());
+                billTransactions.setPhoneNumberType(subcriberResponse.getPhoneNumberType());
+                billTransactions.setPackageCode(packageTypeResponse.getPackageCode());
+                billTransactions.setPackageName(packageTypeResponse.getPackageName());
+                billTransactions.setPackageCapacity(packageTypeResponse.getPackageCapacity());
+                billTransactions.setStartDay(usagePackageResponse.getStartDay());
+                billTransactions.setEndDay(usagePackageResponse.getEndDay());
+                billTransactions.setTotalAmount(bill.getTotalAmount());
+                billTransactions.setTransactionDate(transaction.getTransactionDate());
+                billTransactionsRepository.save(billTransactions);
+                tempSchedule.setStatus((byte) 1);
+                tempScheduleRepository.save(tempSchedule);
+            } catch (TransactionNotCorrect e) {
+                log.error("Transaction not correct", e);
+                tempSchedule.setStatus((byte) 2);
+            }
             // ket thuc log
         }
+        // start
+
     }
 
     public List<BillTransactionsResponse> getAllBillTransactions() {
