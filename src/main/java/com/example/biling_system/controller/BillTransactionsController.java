@@ -92,7 +92,7 @@ public class BillTransactionsController {
                 BillTransactionsResponse response = billTransactionsResponseList.get(i);
                 Row row = sheet.createRow(rowIdx++);
 
-                row.createCell(0).setCellValue(i + 1); // STT
+                row.createCell(0).setCellValue(i + 1);
                 row.createCell(1).setCellValue(response.getId());
                 row.createCell(2).setCellValue(response.getTransactionCode());
                 row.createCell(3).setCellValue(response.getCodeCus());

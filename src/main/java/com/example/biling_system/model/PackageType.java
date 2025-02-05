@@ -29,5 +29,4 @@ public class PackageType {
     @OneToMany(mappedBy = "idPackageType", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<UsagePackage> usagePackages;
 
-
 }
